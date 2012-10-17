@@ -2960,11 +2960,11 @@ public class BrowserActivity extends Activity
 
             // Check to see if the SDCard is busy, same as the music app
             if (status.equals(Environment.MEDIA_SHARED)) {
-                msg = getString(R.string.download_sdcard_busy_dlg_msg);
-                title = R.string.download_sdcard_busy_dlg_title;
+                msg = getString(R.string.download_storage_busy_dlg_msg);
+                title = R.string.download_storage_busy_dlg_title;
             } else {
-                msg = getString(R.string.download_no_sdcard_dlg_msg, filename);
-                title = R.string.download_no_sdcard_dlg_title;
+                msg = getString(R.string.download_no_storage_dlg_msg, filename);
+                title = R.string.download_no_storage_dlg_title;
             }
 
             new AlertDialog.Builder(this)

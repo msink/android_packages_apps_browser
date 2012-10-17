@@ -753,4 +753,9 @@
     <string name="error_console_eval_text_hint" translatable="false">Evaluate JavaScript</string>
     <string name="error_console_eval_button_text" translatable="false">Evaluate</string>
 
+    <string name="download_storage_busy_dlg_msg">The Storage is busy. To allow downloads, select \"Turn off USB storage\" in the notification.</string>
+    <string name="download_storage_busy_dlg_title">storage unavailable</string>
+    <string name="download_no_storage_dlg_title">No Storage</string>
+    <string name="download_no_storage_dlg_msg">Storage is required to download %s.</string>
+
 </resources>
