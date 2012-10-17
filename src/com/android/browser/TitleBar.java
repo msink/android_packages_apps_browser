@@ -59,7 +59,6 @@ public class TitleBar extends LinearLayout {
     private TextView        mTitle;
     private Drawable        mCloseDrawable;
     private ImageView       mRtButton;
-    private Drawable        mCircularProgress;
     private ProgressBar     mHorizontalProgress;
     private ImageView       mFavicon;
     private ImageView       mLockIcon;
@@ -100,8 +99,6 @@ public class TitleBar extends LinearLayout {
 
         mRtButton = (ImageView) findViewById(R.id.rt_btn);
         Resources resources = context.getResources();
-        mCircularProgress = (Drawable) resources.getDrawable(
-                com.android.internal.R.drawable.search_spinner);
         DisplayMetrics metrics = resources.getDisplayMetrics();
         mLeftMargin = (int) TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP, 8f, metrics);
@@ -109,7 +106,6 @@ public class TitleBar extends LinearLayout {
                 TypedValue.COMPLEX_UNIT_DIP, 6f, metrics);
         mIconDimension = (int) TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP, 20f, metrics);
-        mCircularProgress.setBounds(0, 0, mIconDimension, mIconDimension);
         mHorizontalProgress = (ProgressBar) findViewById(
                 R.id.progress_horizontal);
         mGenericFavicon = context.getResources().getDrawable(
@@ -319,7 +315,6 @@ public class TitleBar extends LinearLayout {
     /* package */ void setProgress(int newProgress) {
         if (newProgress >= mHorizontalProgress.getMax()) {
             mTitle.setCompoundDrawables(null, null, null, null);
-            ((Animatable) mCircularProgress).stop();
             mHorizontalProgress.setVisibility(View.INVISIBLE);
             if (!mInVoiceMode) {
                 mRtButton.setImageDrawable(mBookmarkDrawable);
@@ -336,9 +331,6 @@ public class TitleBar extends LinearLayout {
                 // are attached to a window before starting the animation,
                 // preventing a potential race condition
                 // (fix for bug http://b/2115736)
-                mTitle.setCompoundDrawables(null, null, mCircularProgress,
-                        null);
-                ((Animatable) mCircularProgress).start();
                 mHorizontalProgress.setVisibility(View.VISIBLE);
                 if (!mInVoiceMode) {
                     mTitleBg.setBackgroundDrawable(mLoadingBackground);
