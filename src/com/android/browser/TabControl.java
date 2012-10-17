@@ -386,11 +386,6 @@ class TabControl {
             }
         }
 
-        openTabCount /= 2;
-        if (tabsToGo.size() > openTabCount) {
-            tabsToGo.setSize(openTabCount);
-        }
-
         return tabsToGo;
     }
 

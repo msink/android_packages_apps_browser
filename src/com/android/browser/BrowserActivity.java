@@ -1815,8 +1815,14 @@ public class BrowserActivity extends Activity
     // url isn't null, it will load the given url.
     /* package */Tab openTabAndShow(UrlData urlData, boolean closeOnExit,
             String appId) {
-        final Tab currentTab = mTabControl.getCurrentTab();
-        if (mTabControl.canCreateNewTab()) {
+        Tab currentTab = mTabControl.getCurrentTab();
+        if (!mTabControl.canCreateNewTab()) {
+             Tab closeTab = mTabControl.getTab(0);
+             closeTab(closeTab);
+             if (closeTab == currentTab) {
+                 currentTab = null;
+             }
+        }
             final Tab tab = mTabControl.createNewTab(closeOnExit, appId,
                     urlData.mUrl);
             WebView webview = tab.getWebView();
@@ -1833,15 +1839,6 @@ public class BrowserActivity extends Activity
                 loadUrlDataIn(tab, urlData);
             }
             return tab;
-        } else {
-            // Get rid of the subwindow if it exists
-            dismissSubWindow(currentTab);
-            if (!urlData.isEmpty()) {
-                // Load the given url.
-                loadUrlDataIn(currentTab, urlData);
-            }
-            return currentTab;
-        }
     }
 
     private Tab openTab(String url) {
