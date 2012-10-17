@@ -33,6 +33,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.IPackageInstallObserver;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -63,6 +64,7 @@ import android.os.PowerManager;
 import android.os.Process;
 import android.os.ServiceManager;
 import android.os.SystemClock;
+import android.os.SystemProperties;
 import android.provider.Browser;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.Intents.Insert;
@@ -368,6 +370,9 @@ public class BrowserActivity extends Activity
         if (jsFlags.trim().length() != 0) {
             mTabControl.getCurrentWebView().setJsFlags(jsFlags);
         }
+
+        checkFlashPlayerInstalled();
+
         // Work out which packages are installed on the system.
         getInstalledPackages();
 
@@ -3794,6 +3799,58 @@ public class BrowserActivity extends Activity
             }
         };
         task.execute();
+    }
+
+    private void checkFlashPlayerInstalled() {
+        AsyncTask<Void, Void, String> task =
+            new AsyncTask<Void, Void, String>() {
+            protected String doInBackground(Void... unused) {
+                boolean flashPlayerInstalled = false;
+                String installationInfo = "Installing flash player";
+                Set<String> installedPackages = new HashSet<String>();
+
+                PackageManager pm = getPackageManager();
+                if (pm != null) {
+                    List<PackageInfo> packages = pm.getInstalledPackages(0);
+                    for (PackageInfo p : packages) {
+                        if ("com.adobe.flashplayer".equals(p.packageName)) {
+                            flashPlayerInstalled = true;
+                            Log.v("checkFlashPlayerInstalled", "Adobe flash player installed.");
+                            return null;
+                        }
+                    }
+
+                }
+
+                if (!flashPlayerInstalled && Boolean.parseBoolean(SystemProperties.get(
+                            "app.autoinstall.flashplayer", "true"))) {
+                    Log.v("checkFlashPlayerInstalled", "Installing adobe flash player.");
+                    File file = new File("/system/app/flashplayer");
+                    String installerPackageName = getIntent().
+                            getStringExtra(Intent.EXTRA_INSTALLER_PACKAGE_NAME);
+                    Uri mPackageURI = Uri.fromFile(file);
+                    PackageInstallObserver observer = new PackageInstallObserver();
+                    pm.installPackage(mPackageURI, observer, 0, installerPackageName);
+                    return installationInfo;
+                }
+
+                return null;
+            }
+
+            // Executes on the UI thread
+            protected void onPostExecute(String installationInfo) {
+                if (installationInfo != null) {
+                    Toast.makeText(BrowserActivity.this,
+                        installationInfo, Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
+        task.execute();
+    }
+
+    class PackageInstallObserver extends IPackageInstallObserver.Stub {
+        public void packageInstalled(String packageName, int returnCode) {
+        }
     }
 
     final static int LOCK_ICON_UNSECURE = 0;
