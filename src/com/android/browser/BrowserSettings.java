@@ -29,9 +29,11 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.database.ContentObserver;
 import android.os.Handler;
+import android.os.SystemProperties;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
+import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.CookieManager;
 import android.webkit.GeolocationPermissions;
@@ -104,7 +106,7 @@ class BrowserSettings extends Observable {
     // Development settings
     public WebSettings.LayoutAlgorithm layoutAlgorithm =
         WebSettings.LayoutAlgorithm.NARROW_COLUMNS;
-    private boolean useWideViewPort = true;
+    private boolean useWideViewPort = false;
     private int userAgent = 0;
     private boolean tracing = false;
     private boolean lightTouch = false;
@@ -155,8 +157,8 @@ class BrowserSettings extends Observable {
             "(KHTML, like Gecko) Version/4.0.5 Mobile/8A293 Safari/6531.22.7";
 
     private static final String IPAD_USERAGENT = "Mozilla/5.0 (iPad; U; " +
-            "CPU OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 " +
-            "(KHTML, like Gecko) Version/4.0.4 Mobile/7B367 Safari/531.21.10";
+            "CPU OS 4_3_3 like Mac OS X; zh-cn) AppleWebKit/533.17.9 " +
+            "(KHTML, like Gecko) Version/5.0.2 Mobile/8J2 Safari/6533.18.5";
 
     private static final String FROYO_USERAGENT = "Mozilla/5.0 (Linux; U; " +
             "Android 2.2; en-us; Nexus One Build/FRF91) AppleWebKit/533.1 " +
@@ -348,7 +350,7 @@ class BrowserSettings extends Observable {
         if (landscapeOnlyTemp != landscapeOnly) {
             landscapeOnly = landscapeOnlyTemp;
         }
-        useWideViewPort = true; // use wide view port for either setting
+        useWideViewPort = false; // use wide view port for either setting
         if (autoFitPage) {
             layoutAlgorithm = WebSettings.LayoutAlgorithm.NARROW_COLUMNS;
         } else {
@@ -382,6 +384,9 @@ class BrowserSettings extends Observable {
             lightTouch = p.getBoolean("enable_light_touch", lightTouch);
             navDump = p.getBoolean("enable_nav_dump", navDump);
             userAgent = Integer.parseInt(p.getString("user_agent", "0"));
+        } else {
+            userAgent = Integer.parseInt(p.getString("user_agent_release", "4"));
+            Log.v("checkFlashPlayerInstalled", "user_agent = " + userAgent);
         }
         // JS flags is loaded from DB even if showDebugSettings is false,
         // so that it can be set once and be effective all the time.

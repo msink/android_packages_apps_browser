@@ -196,7 +196,7 @@
             <com.android.browser.search.SearchEnginePreference
                     android:key="search_engine"
                     android:title="@string/pref_content_search_engine"
-                    android:defaultValue="google"
+                    android:defaultValue="bing"
                     android:summary="@string/pref_content_search_engine_summary"
                     android:dialogTitle="@string/pref_content_search_engine" />
 
@@ -212,5 +212,13 @@
                     android:dialogMessage="@string/pref_extras_reset_default_dlg" 
                     android:dialogTitle="@string/pref_extras_reset_default_dlg_title" 
                     android:dialogIcon="@android:drawable/ic_dialog_alert" />
+
+            <ListPreference
+                    android:key="user_agent_release"
+                    android:title="@string/pref_development_uastring_release"
+                    android:entries="@array/pref_development_ua_choices"
+                    android:entryValues="@array/pref_development_ua_values"
+                    android:defaultValue="1" />
+
     </PreferenceCategory>
 </PreferenceScreen>

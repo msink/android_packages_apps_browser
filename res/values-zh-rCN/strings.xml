@@ -199,6 +199,7 @@
     <string name="pref_extras_reset_default_dlg" msgid="6640261575874704022">"设置将恢复为默认值。"</string>
     <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"重置为默认设置"</string>
     <string name="pref_development_title" msgid="3263854204533056480">"调试"</string>
+    <string name="pref_development_uastring_release">"用户代理"</string>
     <string name="pref_default_text_encoding" msgid="5742965543955558478">"文字编码"</string>
   <string-array name="pref_default_text_encoding_choices">
     <item msgid="7275223955790513818">"拉丁语-1 (ISO-8859-1)"</item>

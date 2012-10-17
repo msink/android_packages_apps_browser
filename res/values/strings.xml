@@ -465,6 +465,7 @@
         <item>3</item>
         <item>4</item>
     </string-array>
+    <string name="pref_development_uastring_release" translatable="false">User agent</string>
     <string name="pref_development_error_console" translatable="false">Show JavaScript Console</string>
     <!-- Settings screen, setting option name -->
     <string name="pref_default_text_encoding">Text encoding</string>

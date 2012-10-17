@@ -2544,7 +2544,7 @@ public class BrowserActivity extends Activity
 
     // Keep this initial progress in sync with initialProgressValue (* 100)
     // in ProgressTracker.cpp
-    private final static int INITIAL_PROGRESS = 10;
+    private final static int INITIAL_PROGRESS = 30;
 
     void onPageStarted(WebView view, String url, Bitmap favicon) {
         // when BrowserActivity just starts, onPageStarted may be called before
