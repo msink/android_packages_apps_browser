@@ -50,6 +50,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Proxy;
 import android.net.Uri;
 import android.net.WebAddress;
 import android.net.http.SslCertificate;
@@ -122,11 +123,13 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.net.UnknownHostException;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.HashMap;
@@ -183,6 +186,7 @@ public class BrowserActivity extends Activity
             BitmapFactory.setDefaultConfig(Bitmap.Config.ARGB_8888);
         }
 
+        BitmapFactory.setDefaultConfig(Bitmap.Config.RGB_565);
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
 
         mResolver = getContentResolver();
@@ -380,6 +384,37 @@ public class BrowserActivity extends Activity
         mSystemAllowGeolocationOrigins
                 = new SystemAllowGeolocationOrigins(getApplicationContext());
         mSystemAllowGeolocationOrigins.start();
+
+        prefetchDnsForHistoryUrls();
+    }
+
+    private void prefetchDnsForHistoryUrls() {
+        if (Proxy.getHost(getApplicationContext()) != null)
+            return;
+        Runnable getDnsResolution = new Runnable() {
+            public void run() {
+                Process.setThreadPriority(10);
+                String[] urls = Browser.getVisitedHistoryByOrder(
+                                        getContentResolver(), "visits DESC", 10);
+                for (int i = 0; i < urls.length; i++) {
+                    try {
+                        if (urls[i] != null) {
+                            URL tmpUrl = new URL(urls[i]);
+                            if (tmpUrl.getProtocol().startsWith("http:") ||
+                                tmpUrl.getProtocol().startsWith("https:")) {
+                                InetAddress.getByName(tmpUrl.getHost());
+                            }
+                        }
+                    } catch (UnknownHostException e) {
+                    } catch (MalformedURLException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            }
+        };
+        Thread dnsPrefetch = new Thread(getDnsResolution);
+        dnsPrefetch.setName("History DNS resolver");
+        dnsPrefetch.start();
     }
 
     /**
