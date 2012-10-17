@@ -20,6 +20,7 @@
     android:layout_width="match_parent"
     android:orientation="horizontal"
     android:gravity="center_vertical"
+    android:background="@color/white"
     >
     <!-- This ImageView has the same width as the ImageView in
          tab_view_add_tab.xml. -->
@@ -28,7 +29,7 @@
         android:layout_height="20dip"
         android:layout_marginLeft="18dip"
         android:layout_marginRight="18dip"
-        android:background="@drawable/fav_icn_background"
+        android:background="#ffaaaaaa"
         android:padding="2dip"/>
     <LinearLayout
         android:layout_width="0dip"
@@ -66,7 +67,7 @@
         android:layout_height="match_parent"
         android:paddingLeft="18dip"
         android:paddingRight="18dip"
-        android:background="@drawable/close_background"
+        android:background="#ffaaaaaa"
         android:src="@drawable/btn_close_window"
         android:scaleType="center"
         />

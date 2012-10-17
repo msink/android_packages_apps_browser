@@ -116,6 +116,7 @@ public class BrowserHistoryPage extends ExpandableListActivity {
                 Browser.HISTORY_PROJECTION_DATE_INDEX);
         setListAdapter(mAdapter);
         final ExpandableListView list = getExpandableListView();
+        list.setBackgroundColor(0xffffffff);
         list.setOnCreateContextMenuListener(this);
         View v = new ViewStub(this, R.layout.empty_history);
         addContentView(v, new LayoutParams(LayoutParams.MATCH_PARENT,

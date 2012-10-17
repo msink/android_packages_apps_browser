@@ -39,6 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="1"
-        android:cacheColorHint="@color/black"
+        android:background="@color/white"
+        android:cacheColorHint="@color/white"
         />
 </LinearLayout>

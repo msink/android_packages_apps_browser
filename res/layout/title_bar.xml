@@ -28,7 +28,7 @@
     <ProgressBar android:id="@+id/progress_horizontal"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
-        android:layout_height="5dip"
+        android:layout_height="7dip"
         android:layout_marginLeft="1dip"
         android:max="100"
         />
@@ -67,6 +67,7 @@
                     android:layout_marginLeft="3dip"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/black"
+                    android:background="@color/white"
                     android:gravity="center_vertical"
                     android:singleLine="true"
                     android:ellipsize="end"

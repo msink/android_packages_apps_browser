@@ -320,6 +320,7 @@ public class BrowserBookmarksPage extends Activity implements
         if (mViewMode == BookmarkViewMode.GRID) {
             if (mGridPage == null) {
                 mGridPage = new GridView(this);
+                mGridPage.setBackgroundColor(0xffffffff);
                 if (mBookmarksAdapter != null) {
                     mGridPage.setAdapter(mBookmarksAdapter);
                 }
@@ -353,6 +354,7 @@ public class BrowserBookmarksPage extends Activity implements
         } else {
             if (null == mVerticalList) {
                 ListView listView = new ListView(this);
+                listView.setBackgroundColor(0xffffffff);
                 if (mBookmarksAdapter != null) {
                     listView.setAdapter(mBookmarksAdapter);
                 }

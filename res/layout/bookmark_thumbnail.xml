@@ -51,7 +51,7 @@
             android:layout_width="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textStyle="bold"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:text="@string/add_bookmark_short"
             />
     </LinearLayout>
@@ -62,7 +62,7 @@
         android:layout_gravity="bottom"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textStyle="bold"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:maxLines="1"
         android:paddingLeft="2dip"
         android:paddingRight="2dip"
