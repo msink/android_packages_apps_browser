@@ -183,7 +183,7 @@
                 
         <CheckBoxPreference
                 android:key="show_security_warnings"
-                android:defaultValue="true"
+                android:defaultValue="false"
                 android:title="@string/pref_security_show_security_warning"
                 android:summary="@string/pref_security_show_security_warning_summary" />
 
