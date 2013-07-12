@@ -2149,6 +2149,7 @@ public class BrowserActivity extends Activity
 
         switch(keyCode) {
             case KeyEvent.KEYCODE_KEYBOARD:
+            case KeyEvent.KEYCODE_CRSEARCH:
                 editUrl();
                 return true;
             case KeyEvent.KEYCODE_PAGEUP:
