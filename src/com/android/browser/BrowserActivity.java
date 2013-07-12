@@ -1416,17 +1416,6 @@ public class BrowserActivity extends Activity
                 showFindDialog();
                 break;
 
-            case R.id.select_text_id:
-                if (true) {
-                    Tab currentTab = mTabControl.getCurrentTab();
-                    if (currentTab != null) {
-                        currentTab.getWebView().setUpSelect();
-                    }
-                } else {
-                    showSelectDialog();
-                }
-                break;
-
             case R.id.page_info_menu_id:
                 showPageInfo(mTabControl.getCurrentTab(), false);
                 break;
