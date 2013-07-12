@@ -41,5 +41,6 @@
         android:layout_weight="1"
         android:background="@color/white"
         android:cacheColorHint="@color/white"
+        android:listSelector="@drawable/list"
         />
 </LinearLayout>

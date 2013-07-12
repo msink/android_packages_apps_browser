@@ -16,10 +16,13 @@
 
 package com.android.browser;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,6 +71,81 @@ public class ActiveTabsPage extends LinearLayout {
                     mBrowserActivity.removeActiveTabPage(needToAttach);
                 }
         });
+        mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                public boolean onItemLongClick(AdapterView<?> parent, View view,
+                        int position, long id) {
+                    Log.e("ActiveTabsPage  : onLongItemClick()", "position = " + position);
+                    if (position > 0) {
+                        showSingleChoiceButton(position);
+                        return true;
+                    }
+                    return false;
+               }
+        });
+    }
+
+    private void showSingleChoiceButton(int position) {
+        ChoiceOnClickListener buttonOnClick = new ChoiceOnClickListener(position);
+        AlertDialog.Builder builder = new AlertDialog.Builder(mBrowserActivity);
+        builder.setTitle("Select ");
+        builder.setIcon(R.drawable.app_web_browser_sm);
+        builder.setSingleChoiceItems(
+           new String[] { "Open website", "Remove website" },
+           0, buttonOnClick);
+        builder.setNegativeButton("Cancel", null);
+        builder.show();
+    }
+
+    class ChoiceOnClickListener implements DialogInterface.OnClickListener {
+        private int positions;
+        public ChoiceOnClickListener(int index) {
+            positions = index;
+        }
+        public void onClick(DialogInterface dialogInterface, int which) {
+            if (which >= 0) {
+                switch (which) {
+                case 0:
+                    openActiveTabPage(positions);
+                    break;
+                case 1:
+                    closeActiveTabPage(positions);
+                    break;
+                }
+            }
+            dialogInterface.dismiss();
+        }
+    }
+
+    private void closeActiveTabPage(int closePosition) {
+        int tabCount = mControl.getTabCount();
+        if (mControl.canCreateNewTab()) {
+            closePosition--;
+        }
+
+        mBrowserActivity.closeTab(mControl.getTab(closePosition));
+        if (tabCount == 1) {
+            mBrowserActivity.openTabToHomePage();
+            mBrowserActivity.removeActiveTabPage(false);
+        } else {
+            mAdapter.notifyDataSetChanged();
+        }
+    }
+
+    public void openActiveTabPage(int openposition) {
+        if (mControl.canCreateNewTab()) {
+            openposition--;
+        }
+
+        boolean needToAttach = false;
+        if (openposition == -1) {
+            mBrowserActivity.openTabToHomePage();
+        } else if (!mBrowserActivity.switchToTab(openposition)) {
+            needToAttach = true;
+        } else {
+            needToAttach = false;
+        }
+
+        mBrowserActivity.removeActiveTabPage(needToAttach);
     }
 
     /**
