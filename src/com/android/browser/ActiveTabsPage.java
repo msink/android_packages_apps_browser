@@ -150,7 +150,6 @@ public class ActiveTabsPage extends LinearLayout {
                 TextView url = (TextView) convertView.findViewById(R.id.url);
                 ImageView favicon =
                         (ImageView) convertView.findViewById(R.id.favicon);
-                View close = convertView.findViewById(R.id.close);
                 Tab tab = mControl.getTab(position);
                 tab.populatePickerData();
                 title.setText(tab.getTitle());
@@ -161,20 +160,6 @@ public class ActiveTabsPage extends LinearLayout {
                 } else {
                     favicon.setImageResource(R.drawable.app_web_browser_sm);
                 }
-                final int closePosition = position;
-                close.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View v) {
-                            mBrowserActivity.closeTab(
-                                    mControl.getTab(closePosition));
-                            if (tabCount == 1) {
-                                mBrowserActivity.openTabToHomePage();
-                                mBrowserActivity.removeActiveTabPage(false);
-                            } else {
-                                mNotified = true;
-                                notifyDataSetChanged();
-                            }
-                        }
-                });
             }
             return convertView;
         }

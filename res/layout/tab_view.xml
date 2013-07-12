@@ -20,7 +20,6 @@
     android:layout_width="match_parent"
     android:orientation="horizontal"
     android:gravity="center_vertical"
-    android:background="@color/white"
     >
     <!-- This ImageView has the same width as the ImageView in
          tab_view_add_tab.xml. -->
@@ -54,21 +53,4 @@
             android:ellipsize="end"
             />
     </LinearLayout>
-    <View android:id="@+id/divider"
-        android:background="#ff313431"
-        android:layout_width="1dip"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="8dip"
-        android:layout_marginTop="5dip"
-        android:layout_marginBottom="5dip"
-        />
-    <view class="com.android.browser.ActiveTabsPage$CloseHolder" android:id="@+id/close"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:paddingLeft="18dip"
-        android:paddingRight="18dip"
-        android:background="#ffaaaaaa"
-        android:src="@drawable/btn_close_window"
-        android:scaleType="center"
-        />
 </LinearLayout>
