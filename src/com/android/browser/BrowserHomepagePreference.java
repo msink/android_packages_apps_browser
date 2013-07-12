@@ -63,6 +63,7 @@ public class BrowserHomepagePreference extends EditTextPreference {
         if (parent instanceof LinearLayout) {
             ((LinearLayout) parent).setGravity(Gravity.CENTER_HORIZONTAL);
         }
+        parent.setPadding(10, 10, 10, 20);
         parent.addView(button, ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
     }
