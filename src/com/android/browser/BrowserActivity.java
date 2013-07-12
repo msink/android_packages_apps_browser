@@ -2952,30 +2952,6 @@ public class BrowserActivity extends Activity
         String filename = URLUtil.guessFileName(url,
                 contentDisposition, mimetype);
 
-        // Check to see if we have an SDCard
-        String status = Environment.getExternalStorageState();
-        if (!status.equals(Environment.MEDIA_MOUNTED)) {
-            int title;
-            String msg;
-
-            // Check to see if the SDCard is busy, same as the music app
-            if (status.equals(Environment.MEDIA_SHARED)) {
-                msg = getString(R.string.download_storage_busy_dlg_msg);
-                title = R.string.download_storage_busy_dlg_title;
-            } else {
-                msg = getString(R.string.download_no_storage_dlg_msg, filename);
-                title = R.string.download_no_storage_dlg_title;
-            }
-
-            new AlertDialog.Builder(this)
-                .setTitle(title)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setMessage(msg)
-                .setPositiveButton(R.string.ok, null)
-                .show();
-            return;
-        }
-
         // java.net.URI is a lot stricter than KURL so we have to encode some
         // extra characters. Fix for b 2538060 and b 1634719
         WebAddress webAddress;
