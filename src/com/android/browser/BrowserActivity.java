@@ -2159,6 +2159,15 @@ public class BrowserActivity extends Activity
         if (mMenuIsDown) return true;
 
         switch(keyCode) {
+            case KeyEvent.KEYCODE_KEYBOARD:
+                editUrl();
+                return true;
+            case KeyEvent.KEYCODE_PAGEUP:
+                getTopWindow().pageUp(false);
+                return true;
+            case KeyEvent.KEYCODE_PAGEDOWN:
+                getTopWindow().pageDown(false);
+                return true;
             case KeyEvent.KEYCODE_SPACE:
                 // WebView/WebTextView handle the keys in the KeyDown. As
                 // the Activity's shortcut keys are only handled when WebView
@@ -3865,7 +3874,7 @@ public class BrowserActivity extends Activity
     final static int LOCK_ICON_SECURE   = 1;
     final static int LOCK_ICON_MIXED    = 2;
 
-    private BrowserSettings mSettings;
+    public  BrowserSettings mSettings;
     private TabControl      mTabControl;
     private ContentResolver mResolver;
     private FrameLayout     mContentView;
