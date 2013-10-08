@@ -243,7 +243,7 @@
     <string name="download_cancel_dlg_msg" msgid="6285389170052357797">"Все загрузки (<xliff:g id="DOWNLOAD_COUNT">%d</xliff:g>) будут отменены и удалены из истории загрузок."</string>
     <string name="download_delete_file" msgid="5330036497843073249">"Файл будет удален"</string>
     <string name="download_file_error_dlg_title" msgid="2693630283595384874">"Недостаточно места"</string>
-    <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"Невозможно загрузить <xliff:g id="FILENAME">%s</xliff:g>."\n"Освободите место в памяти телефона и повторите попытку."</string>
+    <string name="download_file_error_dlg_msg" msgid="5156405410324072471">"Невозможно загрузить <xliff:g id="FILENAME">%s</xliff:g>."\n"Освободите место в памяти книги и повторите попытку."</string>
     <string name="download_failed_generic_dlg_title" msgid="6106781095337833391">"Ошибка загрузки"</string>
     <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"USB-накопитель недоступен"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"SD-карта отсутствует"</string>
@@ -263,7 +263,7 @@
     <string name="download_pending_network" msgid="6548714525679461053">"Ожидание подключения для передачи данных…"</string>
     <string name="download_running_paused" msgid="6418029352085656495">"Ожидание подключения для передачи данных…"</string>
     <string name="download_canceled" msgid="6057083743144492515">"Загрузка отменена."</string>
-    <string name="download_not_acceptable" msgid="313769696131563652">"Загрузка невозможна. Содержание не поддерживается телефоном."</string>
+    <string name="download_not_acceptable" msgid="313769696131563652">"Загрузка невозможна. Содержание не поддерживается книгой."</string>
     <string name="download_file_error" msgid="1206648050615176113">"Невозможно завершить загрузку. Недостаточно места."</string>
     <string name="download_length_required" msgid="9038605488460437406">"Загрузка невозможна. Размер файла не определен."</string>
     <string name="download_precondition_failed" msgid="8327584102874295580">"Загрузка прервана и не может быть возобновлена."</string>
@@ -275,7 +275,7 @@
     <string name="webstorage_clear_data_dialog_message" msgid="6678281256970470125">"Все данные, сохраненные этим веб-сайтом, будут удалены"</string>
     <string name="webstorage_clear_data_dialog_ok_button" msgid="2516563534211898636">"Удалить все"</string>
     <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"Отмена"</string>
-    <string name="webstorage_origin_summary_mb_stored" msgid="1985885826292236210">"Объем занятой памяти телефона (МБ)"</string>
+    <string name="webstorage_origin_summary_mb_stored" msgid="1985885826292236210">"Объем занятой памяти книги (МБ)"</string>
     <string name="loading_video" msgid="4887871585216091096">"Загрузка видео"</string>
     <string name="geolocation_permissions_prompt_message" msgid="356796102004052471">"<xliff:g id="WEBSITE_ORIGIN">%s</xliff:g> запрашивает данные о вашем местоположении"</string>
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Сообщить местоположение"</string>

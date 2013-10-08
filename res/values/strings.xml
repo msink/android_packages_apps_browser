@@ -582,7 +582,7 @@
     <!-- Dialog title -->
     <string name="download_file_error_dlg_title">Out of space</string>
     <!-- Dialog message -->
-    <string name="download_file_error_dlg_msg"><xliff:g id="filename">%s</xliff:g> could not be downloaded.\nFree up some space on your phone and try again.</string>
+    <string name="download_file_error_dlg_msg"><xliff:g id="filename">%s</xliff:g> could not be downloaded.\nFree up some space on your book and try again.</string>
     <!-- Title for a dialog informing the user that the download has failed -->
     <string name="download_failed_generic_dlg_title">Download unsuccessful</string>
     <!-- Dialog title [CHAR LIMIT=25] -->
@@ -640,7 +640,7 @@
     <!-- Message in the list of items which have received download requests
             telling their status.  This message states that the download will
             not happen because the content is not supported by the phone -->
-    <string name="download_not_acceptable">Cannot download. The content is not supported on this phone.</string>
+    <string name="download_not_acceptable">Cannot download. The content is not supported on this book.</string>
     <!-- Message in the list of items which have received download requests
             telling their status.  This message states that the download did not
             finish because there is not enough storage for the file -->
@@ -717,7 +717,7 @@
     <string name="webstorage_clear_data_dialog_ok_button">Clear all</string>
     <string name="webstorage_clear_data_dialog_cancel_button">Cancel</string>
     <!-- Strings used in the summary of origins -->
-    <string name="webstorage_origin_summary_mb_stored">MB stored on your phone</string>
+    <string name="webstorage_origin_summary_mb_stored">MB stored on your book</string>
         <!-- String shown in a progress view while a video is loading, before it starts playing -->
     <string name="loading_video">Loading video</string>
 
