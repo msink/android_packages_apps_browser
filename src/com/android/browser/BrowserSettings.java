@@ -620,6 +620,11 @@ class BrowserSettings extends Observable {
 
     private String getFactoryResetHomeUrl(Context context) {
         String url = context.getResources().getString(R.string.homepage_base);
+        if (TextUtils.isEmpty(SystemProperties.get("ro.rk.homepage_base"))) {
+            url = context.getResources().getString(R.string.homepage_base);
+        } else {
+            url = SystemProperties.get("ro.rk.homepage_base");
+        }
         if (url.indexOf("{CID}") != -1) {
             url = url.replace("{CID}",
                     BrowserProvider.getClientId(context.getContentResolver()));
