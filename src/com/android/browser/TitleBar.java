@@ -39,6 +39,7 @@ import android.text.style.ImageSpan;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.ContextMenu;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MotionEvent;
@@ -91,8 +92,24 @@ public class TitleBar extends LinearLayout {
 
         mTitle = (TextView) findViewById(R.id.title);
         mTitle.setCompoundDrawablePadding(5);
+        mTitle.setFocusable(true);
+        mTitle.setClickable(true);
+        mTitle.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                mBrowserActivity.editUrl();
+            }
+        });
+        LinearLayout title_layout = (LinearLayout) findViewById(R.id.title_layout);
+        title_layout.setClickable(true);
+        title_layout.setFocusable(false);
+        title_layout.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                mBrowserActivity.editUrl();
+            }
+        });
 
         mTitleBg = findViewById(R.id.title_bg);
+        mTitleBg.setClickable(true);
         mLockIcon = (ImageView) findViewById(R.id.lock);
         mFavicon = (ImageView) findViewById(R.id.favicon);
         mStopButton = (ImageView) findViewById(R.id.stop);
@@ -372,5 +389,15 @@ public class TitleBar extends LinearLayout {
         setFavicon(null);
         setLock(null);
         mHorizontalProgress.setVisibility(View.GONE);
+    }
+
+    public boolean requestFocus(int direction, Rect previouslyFocusedRect) {
+        return mTitle.requestFocus();
+    }
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

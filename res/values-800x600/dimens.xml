@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="address_title_size">21sp</dimen>
+    <dimen name="address_space_size">4sp</dimen>
+</resources>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_focused="false"
+          android:state_pressed="false"
+          android:drawable="@*android:drawable/btn_search_dialog_voice_default">
+        <shape>
+            <gradient android:startColor="#fff"
+                      android:endColor="#fff" />
+            <stroke   android:width="0dip"
+                      android:color="#000" />
+            <corners  android:radius="1dip" />
+            <padding  android:left="1dip"
+                      android:right="1dip" />
+        </shape>
+    </item>
+
+    <item android:state_focused="true"
+          android:drawable="@*android:drawable/btn_search_dialog_voice_selected">
+        <shape>
+            <gradient android:startColor="#fff"
+                      android:endColor="#fff" />
+            <stroke   android:width="3dip"
+                      android:color="#000" />
+            <corners  android:radius="2dip" />
+            <padding  android:left="3dip"
+                      android:right="3dip" />
+        </shape>
+    </item>
+
+    <item android:state_pressed="true"
+          android:drawable="@*android:drawable/btn_search_dialog_voice_pressed">
+        <shape>
+            <gradient android:startColor="#fff"
+                      android:endColor="#fff" />
+            <stroke   android:width="3dip"
+                      android:color="#000" />
+            <corners  android:radius="2dip" />
+            <padding  android:left="3dip"
+                      android:right="3dip" />
+        </shape>
+    </item>
+
+</selector>

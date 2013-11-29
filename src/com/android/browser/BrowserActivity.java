@@ -85,6 +85,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -2147,6 +2148,29 @@ public class BrowserActivity extends Activity
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (KeyEvent.KEYCODE_DPAD_UP == keyCode) {
+            if (!mTitleBarIsFocus) {
+                if (getCurrentFocus().equals(mFocusView)) {
+                    mFocusWebView = getCurrentFocus();
+                    mTitleBar.setFocusable(true);
+                    mTitleBar.requestFocus();
+                    mTitleBarIsFocus = true;
+                    mTitlebgIsFocus = true;
+                }
+            } else {
+                mTitleBarIsFocus = true;
+                mTitlebgIsFocus = true;
+                mTitleBar.requestFocus();
+            }
+        }
+        if (KeyEvent.KEYCODE_DPAD_DOWN == keyCode && mTitleBarIsFocus) {
+            mTitleBarIsFocus = false;
+            if (mFocusWebView != null) {
+                mFocusWebView.requestFocus();
+            } else {
+                getTopWindow().requestFocus();
+            }
+        }
         // Even if MENU is already held down, we need to call to super to open
         // the IME on long press.
         if (KeyEvent.KEYCODE_MENU == keyCode) {
@@ -2213,6 +2237,47 @@ public class BrowserActivity extends Activity
                     return true;
                 }
                 break;
+            case KeyEvent.KEYCODE_DPAD_RIGHT:
+                if (mTitleBarIsFocus) {
+                    mTitlebgIsFocus = false;
+                } else {
+                    mFocusWebView = getCurrentFocus();
+                }
+                break;
+            case KeyEvent.KEYCODE_DPAD_LEFT:
+                if (mTitleBarIsFocus) {
+                    mTitlebgIsFocus = true;
+                } else {
+                    mFocusWebView = getCurrentFocus();
+                }
+                break;
+            case KeyEvent.KEYCODE_DPAD_UP:
+                if (mTitleBarIsFocus || getCurrentFocus().equals(mFocusView))
+                    break;
+                mTitleBarIsFocus = false;
+                mFocusView = getCurrentFocus();
+                break;
+            case KeyEvent.KEYCODE_DPAD_CENTER:
+                if (mTitleBarIsFocus) {
+                    if (mTitlebgIsFocus) {
+                        mTitleBar.onTouchEvent(MotionEvent.obtain(0, 0, 0,
+                             mTitleBar.getRight() / 2,
+                             mTitleBar.getBottom() / 2, 0));
+                        mTitleBar.onTouchEvent(MotionEvent.obtain(0, 0, 1,
+                             mTitleBar.getRight() / 2,
+                             mTitleBar.getBottom() / 2, 0));
+                        return true;
+                    } else {
+                        mTitleBar.onTouchEvent(MotionEvent.obtain(0, 0, 0,
+                             mTitleBar.getRight() + 1,
+                             mTitleBar.getBottom() / 2, 0));
+                        mTitleBar.onTouchEvent(MotionEvent.obtain(0, 0, 1,
+                             mTitleBar.getRight() + 1,
+                             mTitleBar.getBottom() / 2, 0));
+                        return true;
+                    }
+                }
+                break;
         }
         return super.onKeyUp(keyCode, event);
     }
@@ -2257,6 +2322,11 @@ public class BrowserActivity extends Activity
     void removeMessages(int what, Object object) {
         mHandler.removeMessages(what, object);
     }
+
+    private boolean mTitleBarIsFocus = true;
+    private boolean mTitlebgIsFocus = true;
+    private View mFocusView = null;
+    private View mFocusWebView = null;
 
     // public message ids
     public final static int LOAD_URL                = 1001;
