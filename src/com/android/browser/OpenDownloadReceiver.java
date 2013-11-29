@@ -25,6 +25,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.Downloads;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.io.File;
@@ -50,6 +51,7 @@ public class OpenDownloadReceiver extends BroadcastReceiver {
                 String mimetype = cursor.getString(2);
                 String action = intent.getAction();
                 if (Downloads.ACTION_NOTIFICATION_CLICKED.equals(action)) {
+                    if (filename == null) return;
                     int status = cursor.getInt(3);
                     if (Downloads.isStatusCompleted(status)
                             && Downloads.isStatusSuccess(status)) {
@@ -74,6 +76,15 @@ public class OpenDownloadReceiver extends BroadcastReceiver {
                                 DownloadManager.ACTION_VIEW_DOWNLOADS);
                         pageView.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         context.startActivity(pageView);
+                    }
+                } else if (Downloads.ACTION_DOWNLOAD_COMPLETED.equals(action) ||
+                           DownloadManager.ACTION_DOWNLOAD_COMPLETE.equals(action)) {
+                    Log.d("OpenDownloadReceiver", "Download complete");
+                    if ("application/vnd.adobe.adept+xml".equals(mimetype)
+                            && filename != null && new File(filename).exists()) {
+                        Intent i = new Intent("FILE_DOWNLOAD_COMPLETE");
+                        i.putExtra("filename", filename);
+                        context.sendBroadcast(i);
                     }
                 }
             }

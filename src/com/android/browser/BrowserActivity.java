@@ -53,6 +53,7 @@ import android.net.NetworkInfo;
 import android.net.Proxy;
 import android.net.Uri;
 import android.net.WebAddress;
+import android.net.http.AndroidHttpClient;
 import android.net.http.SslCertificate;
 import android.net.http.SslError;
 import android.os.AsyncTask;
@@ -60,6 +61,7 @@ import android.os.Bundle;
 import android.os.Debug;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.os.PowerManager;
 import android.os.Process;
@@ -104,6 +106,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebHistoryItem;
 import android.webkit.WebIconDatabase;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -119,6 +122,8 @@ import android.accounts.AccountManagerCallback;
 import com.android.browser.search.SearchEngine;
 import com.android.common.Search;
 import com.android.common.speech.LoggingEvents;
+import org.apache.http.*;
+import org.apache.http.client.methods.HttpGet;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -262,6 +267,15 @@ public class BrowserActivity extends Activity
 
                         onNetworkToggle(info.isAvailable());
                     }
+                }
+            };
+
+        mDownloadCompleteFilter = new IntentFilter("FILE_DOWNLOAD_COMPLETE");
+        mDownloadCompleteIntentReceiver = new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+                    String acmname = intent.getStringExtra("filename");
+                    createDialog(acmname);
                 }
             };
 
@@ -785,6 +799,7 @@ public class BrowserActivity extends Activity
         registerReceiver(mNetworkStateIntentReceiver,
                          mNetworkStateChangedFilter);
         WebView.enablePlatformNotifications();
+        registerReceiver(mDownloadCompleteIntentReceiver, mDownloadCompleteFilter);
     }
 
     /**
@@ -982,7 +997,9 @@ public class BrowserActivity extends Activity
 
         // unregister network state listener
         unregisterReceiver(mNetworkStateIntentReceiver);
+        unregisterReceiver(mDownloadCompleteIntentReceiver);
         WebView.disablePlatformNotifications();
+        mDialog = null;
     }
 
     @Override
@@ -2202,6 +2219,7 @@ public class BrowserActivity extends Activity
                     bookmarksOrHistoryPicker(true);
                     return true;
                 }
+                mDialog = null;
                 break;
         }
         return super.onKeyDown(keyCode, event);
@@ -2331,6 +2349,7 @@ public class BrowserActivity extends Activity
     // public message ids
     public final static int LOAD_URL                = 1001;
     public final static int STOP_LOAD               = 1002;
+    public final static int LOAD_ACSM               = 1003;
 
     // Message Ids
     private static final int FOCUS_NODE_HREF         = 102;
@@ -2446,6 +2465,10 @@ public class BrowserActivity extends Activity
                     if (view != null) {
                         updateScreenshot(view);
                     }
+                    break;
+
+                case LOAD_ACSM:
+                    loadUrl(getTopWindow(), (String) msg.obj);
                     break;
             }
         }
@@ -2729,7 +2752,50 @@ public class BrowserActivity extends Activity
         }
     }
 
-    boolean shouldOverrideUrlLoading(WebView view, String url) {
+    private boolean isAcsmDownload(String url) {
+        String mimeTypeAcsm = "application/vnd.adobe.adept+xml";
+        AndroidHttpClient client = null;
+        try {
+            client = AndroidHttpClient.newInstance("Android/1.0");
+            HttpResponse response = client.execute(new HttpGet(url));
+            Header[] contentType = response.getHeaders("Content-Type");
+            for (int i = 0; i < contentType.length; i++) {
+                if (contentType[i].getValue().equals("application/vnd.adobe.adept+xml")) {
+                    client.close();
+                    return true;
+                }
+            }
+
+        } catch (IOException e) {
+            if (client != null) client.close();
+            return false;
+        }
+
+        if (client != null) client.close();
+        return false;
+    }
+
+    boolean shouldOverrideUrlLoading(WebView view, final String url) {
+        Log.v(LOGTAG, "url : " + url);
+        new Thread() {
+            public void run() {
+                Looper.prepare();
+                if (isAcsmDownload(url)) {
+                    Log.v(LOGTAG, "Downloads acsm files");
+                    onDownloadStartNoStream(url, null, null, null, 0);
+                    return;
+                }
+                if (url.contains(".acsm?")) {
+                    mHandler.sendMessageDelayed(
+                    mHandler.obtainMessage(LOAD_ACSM, 0, 0, url), 1000);
+                }
+                Looper.loop();
+            }
+        }.start();
+        if (url.contains(".acsm?")) {
+            return true;
+        }
+
         if (url.startsWith(SCHEME_WTAI)) {
             // wtai://wp/mc;number
             // number=string(phone-number)
@@ -4100,6 +4166,9 @@ public class BrowserActivity extends Activity
     private IntentFilter mNetworkStateChangedFilter;
     private BroadcastReceiver mNetworkStateIntentReceiver;
 
+    private IntentFilter mDownloadCompleteFilter;
+    private BroadcastReceiver mDownloadCompleteIntentReceiver;
+
     private BroadcastReceiver mPackageInstallationReceiver;
 
     private SystemAllowGeolocationOrigins mSystemAllowGeolocationOrigins;
@@ -4166,4 +4235,55 @@ public class BrowserActivity extends Activity
     };
 
     /* package */ static final UrlData EMPTY_URL_DATA = new UrlData(null);
+
+    private AlertDialog.Builder mBuilder = null;
+    private AlertDialog mDialog = null;
+
+    public void createDialog(final String filePath) {
+        Log.d("BrowserActivity", "filePath = " + filePath);
+        if (!(new File(filePath).exists())) return;
+        View dialog = LayoutInflater.from(this)
+            .inflate(R.layout.dialog_acsm, null);
+        TextView tv = (TextView) dialog.findViewById(R.id.dilog_ascm_tv);
+        String text = getResources().getString(R.string.dialog_ascm_summary);
+        String[] tokens = filePath.split("/");
+        String fileName = tokens[(tokens.length - 1)];
+        tv.setText("\"" + fileName + "\" " + text + " \"" + fileName + "\"?");
+        tv.invalidate();
+        if (mDialog == null) {
+            mBuilder = new AlertDialog.Builder(this);
+            mDialog = mBuilder.create();
+            Button cancel = (Button) dialog.findViewById(R.id.dialog_ascm_cancel);
+            Button ok = (Button) dialog.findViewById(R.id.dialog_ascm_ok);
+            mDialog.setTitle(R.string.dialog_ascm_title);
+            cancel.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    mDialog.dismiss();
+                    mDialog = null;
+                }
+            });
+            ok.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    Intent intent = new Intent();
+                    intent.setClassName("com.onyx.android.reader",
+                        "com.onyx.android.reader.DrmFulfillDownloadActivity");
+                    Uri data = Uri.parse("file://" + filePath);
+                    intent.setData(data);
+                    mDialog.dismiss();
+                    mDialog = null;
+                    try {
+                        startActivity(intent);
+                    } catch (ActivityNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (SecurityException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
+        mDialog.setView(dialog);
+        if (!mDialog.isShowing()) {
+            mDialog.show();
+        }
+    }
 }

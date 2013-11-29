@@ -34,5 +34,8 @@
         <item name="android:windowEnterAnimation">@anim/title_bar_enter</item>
         <item name="android:windowExitAnimation">@anim/title_bar_exit</item>
     </style>
+
+    <string name="dialog_ascm_summary">downloaded. Do you want to download the DRM content by using</string>
+    <string name="dialog_ascm_title">Download Succeeded</string>
 </resources>
 
