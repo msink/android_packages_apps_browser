@@ -150,7 +150,7 @@ public class BrowserActivity extends Activity
      * This file imports android.provider.Browser, so we can't just refer to "Browser.DEBUG".
      */
     private final static boolean DEBUG = com.android.browser.Browser.DEBUG;
-    private final static boolean LOGV_ENABLED = com.android.browser.Browser.LOGV_ENABLED;
+    private final static boolean LOGV_ENABLED = true;//com.android.browser.Browser.LOGV_ENABLED;
     private final static boolean LOGD_ENABLED = com.android.browser.Browser.LOGD_ENABLED;
 
     private static class ClearThumbnails extends AsyncTask<File, Void, Void> {
@@ -946,7 +946,7 @@ public class BrowserActivity extends Activity
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         if (LOGV_ENABLED) {
-            Log.v(LOGTAG, "BrowserActivity.onSaveInstanceState: this=" + this);
+            //Log.v(LOGTAG, "BrowserActivity.onSaveInstanceState: this=" + this);
         }
         // the default implementation requires each view to have an id. As the
         // browser handles the state itself and it doesn't use id for the views,
@@ -1368,6 +1368,7 @@ public class BrowserActivity extends Activity
             // won't get onKeyUp for MENU. So it is important to reset it here.
             mMenuIsDown = false;
         }
+        System.out.println("shy BrowserActivity onOptionsItemSelected item.getItemId()-" + item.getItemId());
         switch (item.getItemId()) {
             // -- Main menu
             case R.id.new_tab_menu_id:
@@ -1379,6 +1380,7 @@ public class BrowserActivity extends Activity
                 break;
 
             case R.id.bookmarks_menu_id:
+                System.out.println("shy BrowserActivity onOptionsItemSelected 111-");
                 bookmarksOrHistoryPicker(false);
                 break;
 
@@ -1463,10 +1465,12 @@ public class BrowserActivity extends Activity
                 break;
 
             case R.id.classic_history_menu_id:
+                System.out.println("shy BrowserActivity onOptionsItemSelected 222 -");
                 bookmarksOrHistoryPicker(true);
                 break;
 
             case R.id.toast_menu:
+                System.out.println("shy BrowserActivity onOptionsItemSelected Toast menu-");
                 sendVKeyDelay(82);
                 break;
 
@@ -1646,6 +1650,7 @@ public class BrowserActivity extends Activity
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
             ContextMenuInfo menuInfo) {
+        System.out.println("shy BrowserActivity onCreateContextMenu");
         if (v instanceof TitleBar) {
             return;
         }
@@ -2194,6 +2199,7 @@ public class BrowserActivity extends Activity
                     return true;
                 } else if (mCustomView == null && mActiveTabsPage == null
                         && event.isLongPress()) {
+                    System.out.println("shy BrowserActivity onKeyDown -");
                     bookmarksOrHistoryPicker(true);
                     return true;
                 }
@@ -3578,6 +3584,7 @@ public class BrowserActivity extends Activity
         if (current == null) {
             return;
         }
+        System.out.println("shy BrowserActivity bookmarksOrHistoryPicker  startWithHistory=" + startWithHistory);
         Intent intent = new Intent(this,
                 CombinedBookmarkHistoryActivity.class);
         String title = current.getTitle();
@@ -3987,7 +3994,7 @@ public class BrowserActivity extends Activity
     // "source" parameter for Google search from unknown source
     final static String GOOGLE_SEARCH_SOURCE_UNKNOWN = "unknown";
 
-    private final static String LOGTAG = "browser";
+    private final static String LOGTAG = "shy_Browser";
 
     private String mLastEnteredUrl;
 
