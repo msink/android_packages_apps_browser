@@ -31,6 +31,8 @@ import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.PaintDrawable;
 import android.os.Handler;
 import android.os.Message;
+import android.os.RemoteException;
+import android.os.ServiceManager;
 import android.speech.RecognizerIntent;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -39,6 +41,8 @@ import android.text.style.ImageSpan;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.ContextMenu;
+import android.view.IWindowManager;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MotionEvent;
@@ -157,11 +161,26 @@ public class TitleBar extends LinearLayout {
         mBrowserActivity.onCreateContextMenu(menu, this, null);
     }
 
+    private void sendKeyEvent(int code, int event, boolean down) {
+        try {
+            KeyEvent ev = new KeyEvent(0, 0,
+                down ? KeyEvent.ACTION_DOWN : KeyEvent.ACTION_UP,
+                code, 0, 0, 0, event, KeyEvent.FLAG_FROM_SYSTEM);
+            IWindowManager.Stub
+                .asInterface(ServiceManager.getService("window"))
+                .injectKeyEvent_status_bar(ev, true);
+        } catch (RemoteException e) {
+        }
+    }
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         ImageView button = mInLoad ? mStopButton : mRtButton;
+        System.out.println("shy TitleBar onTouchEvent  action--" + event.getAction());
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
+                System.out.println("shy TitleBar onTouchEvent  ACTION_DOWN--" + event.getX() +
+                                   ",,mTitleBg.getRight()=" + mTitleBg.getRight());
                 // Make all touches hit either the textfield or the button,
                 // depending on which side of the right edge of the textfield
                 // they hit.
@@ -169,6 +188,8 @@ public class TitleBar extends LinearLayout {
                     button.setPressed(true);
                 } else {
                     mTitleBg.setPressed(true);
+                    System.out.println("shy TitleBar onTouchEvent  ACTION_DOWN--- ViewConfiguration.getLongPressTimeout()-" +
+                            ViewConfiguration.getLongPressTimeout());
                     mHandler.sendMessageDelayed(mHandler.obtainMessage(
                             LONG_PRESS),
                             ViewConfiguration.getLongPressTimeout());
@@ -201,6 +222,11 @@ public class TitleBar extends LinearLayout {
                 mHandler.removeMessages(LONG_PRESS);
                 break;
             case MotionEvent.ACTION_UP:
+                if (button.isLongClickable()) {
+                    sendKeyEvent(82, 113, true);
+                    sendKeyEvent(82, 113, false);
+                    break;
+                }
                 if (button.isPressed()) {
                     if (mInVoiceMode) {
                         if (mBrowserActivity.getTabControl().getCurrentTab()
@@ -215,6 +241,7 @@ public class TitleBar extends LinearLayout {
                     } else if (mInLoad) {
                         mBrowserActivity.stopLoading();
                     } else {
+                        System.out.println("shy TitleBar onTouchEvent  bookmarksOrHistoryPicker-Action_UP-");
                         mBrowserActivity.bookmarksOrHistoryPicker(false);
                     }
                     button.setPressed(false);

@@ -133,12 +133,14 @@
         </activity>
 
         <activity android:name="BrowserBookmarksPage" android:label="@string/bookmarks"
+                  android:theme="@*android:style/Theme.NoTitleBar.Fullscreen"
                   android:launchMode="singleTop" android:configChanges="orientation|keyboardHidden">
         </activity>
 
         <activity-alias android:name="ShortcutBookmarksPage"
             android:targetActivity="BrowserBookmarksPage"
             android:label="@string/shortcut_bookmark"
+            android:theme="@*android:style/Theme.NoTitleBar.Fullscreen"
             android:icon="@drawable/ic_launcher_shortcut_browser_bookmark">
 
             <intent-filter>
@@ -149,18 +151,22 @@
         </activity-alias>
 
         <activity android:name="BrowserDownloadPage" android:label=""
+                  android:theme="@*android:style/Theme.NoTitleBar.Fullscreen"
                   android:configChanges="orientation|keyboardHidden">
         </activity>
 
         <activity android:name="BrowserPreferencesPage" android:label="@string/menu_preferences"
+                  android:theme="@*android:style/Theme.NoTitleBar.Fullscreen"
                   android:configChanges="orientation|keyboardHidden">
         </activity>
 
         <activity android:name="BrowserHistoryPage" android:label=""
+                  android:theme="@*android:style/Theme.NoTitleBar.Fullscreen"
                   android:configChanges="orientation|keyboardHidden">
         </activity>
 
         <activity android:name="WebsiteSettingsActivity" android:label=""
+                  android:theme="@*android:style/Theme.NoTitleBar.Fullscreen"
                   android:configChanges="orientation|keyboardHidden">
         </activity>
 

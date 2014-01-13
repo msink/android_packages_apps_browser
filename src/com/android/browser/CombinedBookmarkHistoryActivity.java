@@ -24,6 +24,8 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Browser;
+import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.WebIconDatabase;
 import android.webkit.WebIconDatabase.IconListener;
 import android.widget.TabHost;
@@ -91,6 +93,9 @@ public class CombinedBookmarkHistoryActivity extends TabActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                             WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.tabs);
 
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
