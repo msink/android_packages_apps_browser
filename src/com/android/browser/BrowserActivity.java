@@ -768,6 +768,7 @@ public class BrowserActivity extends Activity
         if (LOGV_ENABLED) {
             Log.v(LOGTAG, "BrowserActivity.onResume: this=" + this);
         }
+        mContentView.requestEpdMode(View.EPD_FULL);
 
         if (!mActivityInPause) {
             Log.e(LOGTAG, "BrowserActivity is already resumed.");
