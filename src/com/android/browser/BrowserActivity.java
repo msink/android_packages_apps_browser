@@ -63,6 +63,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.PowerManager;
 import android.os.Process;
+import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.os.SystemClock;
 import android.os.SystemProperties;
@@ -80,6 +81,7 @@ import android.util.Log;
 import android.util.Patterns;
 import android.view.ContextMenu;
 import android.view.Gravity;
+import android.view.IWindowManager;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -1319,8 +1321,34 @@ public class BrowserActivity extends Activity
         return tab.showDialog(dialog);
     }
 
+    private void sendVKeyDelay(int key) {
+        final int keyCode = key;
+        Thread sendKeyDelay = new Thread() {
+            public void run() {
+                try {
+                    Thread.sleep(100);
+                    long now = SystemClock.uptimeMillis();
+                    KeyEvent keyDown = new KeyEvent(now, now, KeyEvent.ACTION_DOWN,
+                            keyCode, 0);
+                    IWindowManager wm = IWindowManager.Stub.asInterface(
+                            ServiceManager.getService("window"));
+                    wm.injectKeyEvent(keyDown, false);
+                    KeyEvent keyUp = new KeyEvent(now, now, KeyEvent.ACTION_UP,
+                            keyCode, 0);
+                    wm.injectKeyEvent(keyUp, false);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        sendKeyDelay.start();
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        System.out.println("shy BrowserActivity onOptionsItemSelected item-" + item);
         if (!mCanChord) {
             // The user has already fired a shortcut with this hold down of the
             // menu key.
@@ -1432,6 +1460,10 @@ public class BrowserActivity extends Activity
 
             case R.id.classic_history_menu_id:
                 bookmarksOrHistoryPicker(true);
+                break;
+
+            case R.id.toast_menu:
+                sendVKeyDelay(82);
                 break;
 
             case R.id.dump_nav_menu_id:

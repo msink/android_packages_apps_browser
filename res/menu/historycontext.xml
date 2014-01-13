@@ -27,4 +27,6 @@
         android:title="@string/remove_history_item"/>
     <item android:id="@+id/homepage_context_menu_id"
         android:title="@string/set_as_homepage"/>
+    <item android:id="@+id/toast_menu_context_menu_id"
+        android:title="@string/toast_menu"/>
 </menu>

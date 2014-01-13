@@ -37,11 +37,15 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.RemoteException;
 import android.os.ServiceManager;
+import android.os.SystemClock;
 import android.provider.Browser;
 import android.text.IClipboard;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.IWindowManager;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -127,6 +131,9 @@ public class BrowserBookmarksPage extends Activity implements
         case R.id.copy_url_context_menu_id:
             copy(getUrl(i.position));
             break;
+        case R.id.toast_menu_context_menu_id:
+            sendVKeyDelay(82);
+            break;
         case R.id.homepage_context_menu_id:
             BrowserSettings.getInstance().setHomePage(this,
                     getUrl(i.position));
@@ -160,6 +167,31 @@ public class BrowserBookmarksPage extends Activity implements
             return super.onContextItemSelected(item);
         }
         return true;
+    }
+
+    private void sendVKeyDelay(int key) {
+        final int keyCode = key;
+        Thread sendKeyDelay = new Thread() {
+            public void run() {
+                try {
+                    Thread.sleep(100);
+                    long now = SystemClock.uptimeMillis();
+                    KeyEvent keyDown = new KeyEvent(now, now, KeyEvent.ACTION_DOWN,
+                            keyCode, 0);
+                    IWindowManager wm = IWindowManager.Stub.asInterface(
+                            ServiceManager.getService("window"));
+                    wm.injectKeyEvent(keyDown, false);
+                    KeyEvent keyUp = new KeyEvent(now, now, KeyEvent.ACTION_UP,
+                            keyCode, 0);
+                    wm.injectKeyEvent(keyUp, false);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        sendKeyDelay.start();
     }
 
     @Override

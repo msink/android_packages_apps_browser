@@ -759,4 +759,5 @@
     <string name="download_no_storage_dlg_title">No Storage</string>
     <string name="download_no_storage_dlg_msg">Storage is required to download %s.</string>
 
+    <string name="toast_menu">Toast Menu</string>
 </resources>

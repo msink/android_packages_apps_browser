@@ -21,4 +21,6 @@
             window.-->
     <item android:id="@+id/title_bar_copy_page_url"
         android:title="@string/copy_page_url"/>
+    <item android:id="@+id/toast_menu"
+        android:title="@string/toast_menu"/>
 </menu>
