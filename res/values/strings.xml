@@ -663,38 +663,28 @@
             user signs up the device with a Google sites account, the site's
             domain will be appended. -->
     <string name="homepage_base" translatable="false">
-        http://www.google.com/m?client=ms-{CID}&amp;source=android-home</string>
+        http://www.texet.ru/</string>
 
     <!-- Bookmarks -->
     <string-array name="bookmarks" translatable="false">
+        <item>texet</item>
+        <item>http://www.texet.ru/</item>
         <item>Google</item>
-        <item>http://www.google.com/</item>
-        <item>Picasa</item>
-        <item>http://picasaweb.google.com/m/viewer?source=androidclient</item>
+        <item>http://www.google.ru/</item>
+        <item>yandex</item>
+        <item>http://www.yandex.ru/</item>
+        <item>vk</item>
+        <item>http://www.vk.com/</item>
+        <item>odnoklassniki</item>
+        <item>http://www.odnoklassniki.ru/</item>
+        <item>litres</item>
+        <item>http://www.litres.ru/</item>
+        <item>Facebook</item>
+        <item>http://www.facebook.com/</item>
         <item>Yahoo!</item>
         <item>http://www.yahoo.com/</item>
         <item>MSN</item>
         <item>http://www.msn.com/</item>
-        <item>MySpace</item>
-        <item>http://www.myspace.com/</item>
-        <item>Facebook</item>
-        <item>http://www.facebook.com/</item>
-        <item>Wikipedia</item>
-        <item>http://www.wikipedia.org/</item>
-        <item>eBay</item>
-        <item>http://www.ebay.com/</item>
-        <item>CNN</item>
-        <item>http://www.cnn.com/</item>
-        <item>NY Times</item>
-        <item>http://www.nytimes.com/</item>
-        <item>ESPN</item>
-        <item>http://espn.com/</item>
-        <item>Amazon</item>
-        <item>http://www.amazon.com/</item>
-        <item>Weather Channel</item>
-        <item>http://www.weather.com/</item>
-        <item>BBC</item>
-        <item>http://www.bbc.co.uk/</item>
     </string-array>
 
     <!-- Bookmark name for Picasa website -->
