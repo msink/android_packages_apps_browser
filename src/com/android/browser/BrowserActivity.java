@@ -1176,7 +1176,6 @@ public class BrowserActivity extends Activity
             case R.id.open_newtab_context_menu_id:
             case R.id.bookmark_context_menu_id:
             case R.id.save_link_context_menu_id:
-            case R.id.share_link_context_menu_id:
             case R.id.copy_link_context_menu_id:
                 final WebView webView = getTopWindow();
                 if (null == webView) {
@@ -1435,19 +1434,6 @@ public class BrowserActivity extends Activity
                 bookmarksOrHistoryPicker(true);
                 break;
 
-            case R.id.title_bar_share_page_url:
-            case R.id.share_page_menu_id:
-                Tab currentTab = mTabControl.getCurrentTab();
-                if (null == currentTab) {
-                    mCanChord = false;
-                    return false;
-                }
-                currentTab.populatePickerData();
-                sharePage(this, currentTab.getTitle(),
-                        currentTab.getUrl(), currentTab.getFavicon(),
-                        createScreenshot(currentTab.getWebView()));
-                break;
-
             case R.id.dump_nav_menu_id:
                 getTopWindow().debugDump();
                 break;
@@ -1604,8 +1590,6 @@ public class BrowserActivity extends Activity
                 PackageManager pm = getPackageManager();
                 Intent send = new Intent(Intent.ACTION_SEND);
                 send.setType("text/plain");
-                ResolveInfo ri = pm.resolveActivity(send, PackageManager.MATCH_DEFAULT_ONLY);
-                menu.findItem(R.id.share_page_menu_id).setVisible(ri != null);
 
                 boolean isNavDump = mSettings.isNavDump();
                 final MenuItem nav = menu.findItem(R.id.dump_nav_menu_id);
@@ -1718,7 +1702,6 @@ public class BrowserActivity extends Activity
                 Intent send = new Intent(Intent.ACTION_SEND);
                 send.setType("text/plain");
                 ResolveInfo ri = pm.resolveActivity(send, PackageManager.MATCH_DEFAULT_ONLY);
-                menu.findItem(R.id.share_link_context_menu_id).setVisible(ri != null);
                 if (type == WebView.HitTestResult.SRC_ANCHOR_TYPE) {
                     break;
                 }
@@ -2304,43 +2287,6 @@ public class BrowserActivity extends Activity
                             intent.putExtra("url", url);
                             intent.putExtra("title", title);
                             startActivity(intent);
-                            break;
-                        case R.id.share_link_context_menu_id:
-                            // See if this site has been visited before
-                            StringBuilder sb = new StringBuilder(
-                                    Browser.BookmarkColumns.URL + " = ");
-                            DatabaseUtils.appendEscapedSQLString(sb, url);
-                            Cursor c = mResolver.query(Browser.BOOKMARKS_URI,
-                                    Browser.HISTORY_PROJECTION,
-                                    sb.toString(),
-                                    null,
-                                    null);
-                            if (c.moveToFirst()) {
-                                // The site has been visited before, so grab the
-                                // info from the database.
-                                Bitmap favicon = null;
-                                Bitmap thumbnail = null;
-                                String linkTitle = c.getString(Browser.
-                                        HISTORY_PROJECTION_TITLE_INDEX);
-                                byte[] data = c.getBlob(Browser.
-                                        HISTORY_PROJECTION_FAVICON_INDEX);
-                                if (data != null) {
-                                    favicon = BitmapFactory.decodeByteArray(
-                                            data, 0, data.length);
-                                }
-                                data = c.getBlob(Browser.
-                                        HISTORY_PROJECTION_THUMBNAIL_INDEX);
-                                if (data != null) {
-                                    thumbnail = BitmapFactory.decodeByteArray(
-                                            data, 0, data.length);
-                                }
-                                sharePage(BrowserActivity.this,
-                                        linkTitle, url, favicon, thumbnail);
-                            } else {
-                                Browser.sendString(BrowserActivity.this, url,
-                                        getString(
-                                        R.string.choosertitle_sharevia));
-                            }
                             break;
                         case R.id.copy_link_context_menu_id:
                             copy(url);

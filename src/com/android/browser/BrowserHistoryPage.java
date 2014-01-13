@@ -230,7 +230,6 @@ public class BrowserHistoryPage extends ExpandableListActivity {
         Intent send = new Intent(Intent.ACTION_SEND);
         send.setType("text/plain");
         ResolveInfo ri = pm.resolveActivity(send, PackageManager.MATCH_DEFAULT_ONLY);
-        menu.findItem(R.id.share_link_context_menu_id).setVisible(ri != null);
         
         super.onCreateContextMenu(menu, v, menuInfo);
     }
@@ -256,10 +255,6 @@ public class BrowserHistoryPage extends ExpandableListActivity {
                 } else {
                     Browser.saveBookmark(this, title, url);
                 }
-                return true;
-            case R.id.share_link_context_menu_id:
-                Browser.sendString(this, url,
-                        getText(R.string.choosertitle_sharevia).toString());
                 return true;
             case R.id.copy_url_context_menu_id:
                 copy(url);

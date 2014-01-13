@@ -124,12 +124,6 @@ public class BrowserBookmarksPage extends Activity implements
         case R.id.new_window_context_menu_id:
             openInNewWindow(i.position);
             break;
-        case R.id.share_link_context_menu_id:
-            BrowserActivity.sharePage(BrowserBookmarksPage.this,
-                    mBookmarksAdapter.getTitle(i.position), getUrl(i.position),
-                    getFavicon(i.position),
-                    mBookmarksAdapter.getScreenshot(i.position));
-            break;
         case R.id.copy_url_context_menu_id:
             copy(getUrl(i.position));
             break;
