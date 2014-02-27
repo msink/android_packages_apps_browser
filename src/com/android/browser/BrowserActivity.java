@@ -78,6 +78,7 @@ import android.text.format.DateFormat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.BrightnessPanel;
 import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -2147,6 +2148,10 @@ public class BrowserActivity extends Activity
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (KeyEvent.KEYCODE_BRIGHTNESS_CONTROL == keyCode) {
+            new BrightnessPanel(this).postBrightnessChanged();
+            return true;
+        }
         // Even if MENU is already held down, we need to call to super to open
         // the IME on long press.
         if (KeyEvent.KEYCODE_MENU == keyCode) {
