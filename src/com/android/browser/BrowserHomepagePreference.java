@@ -32,18 +32,22 @@ import android.util.AttributeSet;
 
 public class BrowserHomepagePreference extends EditTextPreference {
     private String mCurrentPage;
+    private Context mContext;
 
     public BrowserHomepagePreference(Context context, AttributeSet attrs,
             int defStyle) {
         super(context, attrs, defStyle);
+        mContext = context;
     }
 
     public BrowserHomepagePreference(Context context, AttributeSet attrs) {
         super(context, attrs);
+        mContext = context;
     }
 
     public BrowserHomepagePreference(Context context) {
         super(context);
+        mContext = context;
     }
 
     @Override
@@ -69,6 +73,7 @@ public class BrowserHomepagePreference extends EditTextPreference {
 
     @Override
     protected void onDialogClosed(boolean positiveResult) {
+        System.out.println("positiveResult" + positiveResult);
         if (positiveResult) {
             String url = getEditText().getText().toString();
             if (url.length() > 0

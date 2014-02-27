@@ -126,6 +126,7 @@ public class BrowserPreferencesPage extends PreferenceActivity
             }
         } else if (pref.getKey().equals(BrowserSettings.PREF_HOMEPAGE)) {
             String value = (String) objValue;
+            System.out.println("Browser:" + value);
             boolean needUpdate = value.indexOf(' ') != -1;
             if (needUpdate) {
                 value = value.trim().replace(" ", "%20");

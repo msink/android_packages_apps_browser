@@ -662,8 +662,11 @@
     <!-- The default homepage. If it starts with "http://www.google" and the
             user signs up the device with a Google sites account, the site's
             domain will be appended. -->
-    <string name="homepage_base" translatable="false">
-        http://www.google.com/m?client=ms-{CID}&amp;source=android-home</string>
+    <string name="homepage_base">http://ebsm.numilog.com/device/darty</string>
+    <string name="homepage_base_inves">http://ocio.elcorteingles.es/tagus</string>
+    <string name="homepage_base_imcosys">http://www.google.ch</string>
+    <string name="homepage_base_concorde_readman">http://www.mek.oszk.hu/</string>
+    <string name="homepage_base_tf">http://www.google.com.hk</string>
 
     <!-- Bookmarks -->
     <string-array name="bookmarks" translatable="false">

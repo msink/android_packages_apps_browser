@@ -28,6 +28,7 @@ import android.content.pm.ActivityInfo;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.database.ContentObserver;
+import android.os.Build;
 import android.os.Handler;
 import android.os.SystemProperties;
 import android.preference.PreferenceActivity;
@@ -426,10 +427,12 @@ class BrowserSettings extends Observable {
     }
 
     public void setHomePage(Context context, String url) {
+        System.out.println("Browser:" + url);
+        Log.i("browser", "homeUrl: " + url);
         Editor ed = PreferenceManager.
                 getDefaultSharedPreferences(context).edit();
         ed.putString(PREF_HOMEPAGE, url);
-        ed.apply();
+        ed.commit();
         homeUrl = url;
     }
 
@@ -619,7 +622,18 @@ class BrowserSettings extends Observable {
     }
 
     private String getFactoryResetHomeUrl(Context context) {
-        String url = context.getResources().getString(R.string.homepage_base);
+        String url = "";
+        if (Build.PRODUCT.equals("BK6021A")) {
+            url = context.getResources().getString(R.string.homepage_base_inves);
+        } else if (Build.PRODUCT.equals("Imcosys")) {
+            url = context.getResources().getString(R.string.homepage_base_imcosys);
+        } else if (Build.PRODUCT.equals("K20FL")) {
+            url = context.getResources().getString(R.string.homepage_base_concorde_readman);
+        } else if (Build.PRODUCT.equals("C601TF") || Build.PRODUCT.equals("K20pro")) {
+            url = context.getResources().getString(R.string.homepage_base_tf);
+        } else {
+            url = context.getResources().getString(R.string.homepage_base);
+        }
         if (url.indexOf("{CID}") != -1) {
             url = url.replace("{CID}",
                     BrowserProvider.getClientId(context.getContentResolver()));
