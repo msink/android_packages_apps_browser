@@ -56,6 +56,7 @@ import android.net.WebAddress;
 import android.net.http.SslCertificate;
 import android.net.http.SslError;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Debug;
 import android.os.Environment;
@@ -71,6 +72,7 @@ import android.provider.ContactsContract;
 import android.provider.ContactsContract.Intents.Insert;
 import android.provider.Downloads;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.speech.RecognizerResultsIntent;
 import android.text.IClipboard;
 import android.text.TextUtils;
@@ -164,6 +166,19 @@ public class BrowserActivity extends Activity
             }
             return null;
         }
+    }
+
+    public void onWindowFocusChanged(boolean hasFocus) {
+        if (hasFocus) {
+            if (Build.PRODUCT.equals("BK6021A")) {
+                Settings.System.putInt(getContentResolver(), "caration_show_cursor", 1);
+            } else {
+                Settings.System.putInt(getContentResolver(), "caration_show_cursor", 0);
+            }
+        } else {
+            Settings.System.putInt(getContentResolver(), "caration_show_cursor", 0);
+        }
+        return;
     }
 
     /**
@@ -388,6 +403,19 @@ public class BrowserActivity extends Activity
 
         prefetchDnsForHistoryUrls();
     }
+
+    BroadcastReceiver inputMethodReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals("CARATION.INPUTMETHOD.SHOW")) {
+                Settings.System.putInt(getContentResolver(), "caration_show_cursor", 0);
+            } else if (action.equals("CARATION.INPUTMETHOD.DISMISS")
+                       && Build.PRODUCT.equals("BK6021A")) {
+                Settings.System.putInt(getContentResolver(), "caration_show_cursor", 1);
+            }
+        }
+    };
 
     private void prefetchDnsForHistoryUrls() {
         if (Proxy.getHost(getApplicationContext()) != null)
@@ -768,6 +796,10 @@ public class BrowserActivity extends Activity
             Log.v(LOGTAG, "BrowserActivity.onResume: this=" + this);
         }
 
+        IntentFilter filter = new IntentFilter("CARATION.INPUTMETHOD.SHOW");
+        filter.addAction("CARATION.INPUTMETHOD.DISMISS");
+        registerReceiver(inputMethodReceiver, filter);
+
         if (!mActivityInPause) {
             Log.e(LOGTAG, "BrowserActivity is already resumed.");
             return;
@@ -983,6 +1015,7 @@ public class BrowserActivity extends Activity
         // unregister network state listener
         unregisterReceiver(mNetworkStateIntentReceiver);
         WebView.disablePlatformNotifications();
+        unregisterReceiver(inputMethodReceiver);
     }
 
     @Override
