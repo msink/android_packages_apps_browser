@@ -25,7 +25,7 @@
     <string name="tab_history" msgid="1979267558744613746">"Historial"</string>
     <string name="added_to_bookmarks" msgid="1020224130695956728">"Añadido a marcadores"</string>
     <string name="removed_from_bookmarks" msgid="6063705902028438800">"Eliminado de marcadores"</string>
-    <string name="sign_in_to" msgid="5939425800148759165">"Acceder a <xliff:g id="HOSTNAME">%s1</xliff:g> \"<xliff:g id="REALM">%s2</xliff:g>\""</string>
+    <string name="sign_in_to" msgid="5939425800148759165">"Acceder a <xliff:g id="HOSTNAME">%s1</xliff:g> \"\n<xliff:g id="REALM">%s2</xliff:g>\""</string>
     <string name="username" msgid="5057566336518215922">"Nombre"</string>
     <string name="password" msgid="1177138552305184404">"Contraseña"</string>
     <string name="action" msgid="183105774472071343">"Acceder"</string>
@@ -35,8 +35,8 @@
   <plurals name="matches_found">
     <item quantity="zero" msgid="6242659159545399963">"No hay coincidencias"</item>
     <item quantity="one" msgid="4352019729062956802">"Una coincidencia"</item>
-    <item quantity="few" msgid="5544267486978946555">"<xliff:g id="NUMBER">%d</xliff:g> coincidencias"</item>
-    <item quantity="other" msgid="6616125067364315405">"<xliff:g id="NUMBER">%d</xliff:g> coincidencias"</item>
+    <item quantity="few" msgid="5544267486978946555">"\n<xliff:g id="NUMBER">%d</xliff:g> coincidencias"</item>
+    <item quantity="other" msgid="6616125067364315405">"\n<xliff:g id="NUMBER">%d</xliff:g> coincidencias"</item>
   </plurals>
     <string name="title_bar_loading" msgid="7438217780834640678">"Cargando..."</string>
     <string name="page_info" msgid="4048529256302257195">"Información de página"</string>
@@ -90,7 +90,7 @@
     <string name="switch_to_thumbnails" msgid="5493351529609043151">"Vista de miniaturas"</string>
     <string name="switch_to_list" msgid="8900531247982121055">"Vista de lista"</string>
     <string name="current_page" msgid="7510129573681663135">"de "</string>
-    <string name="delete_bookmark_warning" msgid="758043186202032205">"Se eliminará el marcador \"<xliff:g id="BOOKMARK">%s</xliff:g>\"."</string>
+    <string name="delete_bookmark_warning" msgid="758043186202032205">"Se eliminará el marcador \"\n<xliff:g id="BOOKMARK">%s</xliff:g>\"."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"Abrir en ventana nueva"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Ir"</string>
     <string name="find_dot" msgid="6259312434696611957">"Buscar en la página"</string>
@@ -213,7 +213,7 @@
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Problema de conectividad de datos"</string>
     <string name="browserFrameFileErrorLabel" msgid="8063691502792670367">"Problema con archivo"</string>
     <string name="browserFrameFormResubmitLabel" msgid="2685923472682180360">"OK"</string>
-    <string name="browserFrameFormResubmitMessage" msgid="2752182215695632138">"La página que intentas ver contiene datos que ya se han enviado (\"POSTDATA\"). Si reenvías los datos, se repetirá cualquier acción realizada por el formulario de la página (como las búsquedas o las compras online)."</string>
+    <string name="browserFrameFormResubmitMessage" msgid="2752182215695632138">"La página que intenta ver contiene datos que ya se han enviado (\"POSTDATA\"). Si reenvías los datos, se repetirá cualquier acción realizada por el formulario de la página (como las búsquedas o las compras online)."</string>
     <string name="loadSuspendedTitle" msgid="675991625288706944">"Sin conexión de red"</string>
     <string name="loadSuspended" msgid="3133656588880851273">"El navegador no puede cargar esta página porque no hay conexión a Internet."</string>
     <string name="clear_history" msgid="5998307092715979619">"Borrar historial"</string>
@@ -277,7 +277,7 @@
     <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"Cancelar"</string>
     <string name="webstorage_origin_summary_mb_stored" msgid="1985885826292236210">"MB almacenados en tu teléfono"</string>
     <string name="loading_video" msgid="4887871585216091096">"Cargando vídeo"</string>
-    <string name="geolocation_permissions_prompt_message" msgid="356796102004052471">"<xliff:g id="WEBSITE_ORIGIN">%s</xliff:g> quiere conocer tu ubicación."</string>
+    <string name="geolocation_permissions_prompt_message" msgid="356796102004052471">"\n<xliff:g id="WEBSITE_ORIGIN">%s</xliff:g> quiere conocer tu ubicación."</string>
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Compartir ubicación"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Rechazar"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Recordar preferencia"</string>
@@ -296,4 +296,67 @@
     <string name="website_settings_clear_all_dialog_ok_button" msgid="6401582240627669431">"Eliminar todos los datos"</string>
     <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"Cancelar"</string>
     <string name="progress_dialog_setting_wallpaper" msgid="4871900779338536674">"Estableciendo fondo de pantalla..."</string>
+  <string-array name="pref_content_plugins_values">
+    <item>ON</item>
+    <item>ON_DEMAND</item>
+    <item>OFF</item>
+  </string-array>
+  <string-array name="pref_text_size_values">
+    <item>SMALLEST</item>
+    <item>SMALLER</item>
+    <item>NORMAL</item>
+    <item>LARGER</item>
+    <item>LARGEST</item>
+  </string-array>
+  <string-array name="pref_default_zoom_values">
+    <item>FAR</item>
+    <item>MEDIUM</item>
+    <item>CLOSE</item>
+  </string-array>
+  <string-array name="pref_development_ua_choices">
+    <item>Android</item>
+    <item>Desktop</item>
+    <item>iPhone</item>
+    <item>iPad</item>
+    <item>Froyo-N1</item>
+  </string-array>
+  <string-array name="pref_development_ua_values">
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+    <item>4</item>
+  </string-array>
+  <string-array name="pref_default_text_encoding_values">
+    <item>Latin-1</item>
+    <item>UTF-8</item>
+    <item>GBK</item>
+    <item>Big5</item>
+    <item>ISO-2022-JP</item>
+    <item>SHIFT_JIS</item>
+    <item>EUC-JP</item>
+  </string-array>
+    <string name="pref_default_text_encoding_default">Latin-1</string>
+    <string name="pref_development_viewport">Usar wide viewport</string>
+    <string name="pref_development_single_column_rendering">Renderizado de columna sencilla</string>
+    <string name="pref_development_normal_rendering">Renderizado normal</string>
+    <string name="pref_development_trace">Activar trazado</string>
+    <string name="pref_development_nav_dump">Activar volcado de caché de navegación</string>
+    <string name="js_engine_flags">Ajustar JS flags</string>
+    <string name="pref_development_uastring">UAString</string>
+    <string name="pref_development_uastring_release">User agent</string>
+    <string name="pref_development_error_console">Show JavaScript Console</string>
+    <string name="search_label">Explorador</string>
+    <string name="dump_nav">Volcado caché de navegación</string>
+    <string name="dump_counters">Volcar contadores V8</string>
+    <string name="homepage_base">http://www.google.com/m?client=ms-{CID}&amp;source=android-home</string>
+    <string name="picasa">Picasa</string>
+    <string name="error_console_header_text_minimized">Mostrar consola Javascript</string>
+    <string name="error_console_header_text_maximized">Consola JavaScript</string>
+    <string name="error_console_eval_text_hint">Evaluar JavaScript</string>
+    <string name="error_console_eval_button_text">Evaluar</string>
+    <string name="download_storage_busy_dlg_msg">EL almacenamiento está ocupado. Para permitir desacargas, seleccionar \"Desconectar almacenamiento USB\" en la notificación.</string>
+    <string name="download_storage_busy_dlg_title">Almacenamiento no disponible</string>
+    <string name="download_no_storage_dlg_title">No hay almacenamiento</string>
+    <string name="download_no_storage_dlg_msg">Se necesita almacenamiento para descarga %s.</string>
 </resources>

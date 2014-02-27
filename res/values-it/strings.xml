@@ -25,7 +25,7 @@
     <string name="tab_history" msgid="1979267558744613746">"Cronologia"</string>
     <string name="added_to_bookmarks" msgid="1020224130695956728">"Aggiunto a segnalibri"</string>
     <string name="removed_from_bookmarks" msgid="6063705902028438800">"Rimosso da segnalibri"</string>
-    <string name="sign_in_to" msgid="5939425800148759165">"Accedi a <xliff:g id="HOSTNAME">%s1</xliff:g> \"<xliff:g id="REALM">%s2</xliff:g>\""</string>
+    <string name="sign_in_to" msgid="5939425800148759165">"Accedi a <xliff:g id="HOSTNAME">%s1</xliff:g> \"\n<xliff:g id="REALM">%s2</xliff:g>\""</string>
     <string name="username" msgid="5057566336518215922">"Nome"</string>
     <string name="password" msgid="1177138552305184404">"Password"</string>
     <string name="action" msgid="183105774472071343">"Accedi"</string>
@@ -35,8 +35,8 @@
   <plurals name="matches_found">
     <item quantity="zero" msgid="6242659159545399963">"Nessuna corrispondenza"</item>
     <item quantity="one" msgid="4352019729062956802">"1 corrispondenza"</item>
-    <item quantity="few" msgid="5544267486978946555">"<xliff:g id="NUMBER">%d</xliff:g> corrispondenze"</item>
-    <item quantity="other" msgid="6616125067364315405">"<xliff:g id="NUMBER">%d</xliff:g> corrispondenze"</item>
+    <item quantity="few" msgid="5544267486978946555">"\n<xliff:g id="NUMBER">%d</xliff:g> corrispondenze"</item>
+    <item quantity="other" msgid="6616125067364315405">"\n<xliff:g id="NUMBER">%d</xliff:g> corrispondenze"</item>
   </plurals>
     <string name="title_bar_loading" msgid="7438217780834640678">"Caricamento..."</string>
     <string name="page_info" msgid="4048529256302257195">"Info pagina"</string>
@@ -90,7 +90,7 @@
     <string name="switch_to_thumbnails" msgid="5493351529609043151">"Visualizzazione miniatura"</string>
     <string name="switch_to_list" msgid="8900531247982121055">"Visualizzazione elenco"</string>
     <string name="current_page" msgid="7510129573681663135">"da "</string>
-    <string name="delete_bookmark_warning" msgid="758043186202032205">"Il segnalibro \"<xliff:g id="BOOKMARK">%s</xliff:g>\" verrà eliminato."</string>
+    <string name="delete_bookmark_warning" msgid="758043186202032205">"Il segnalibro \"\n<xliff:g id="BOOKMARK">%s</xliff:g>\" verrà eliminato."</string>
     <string name="open_in_new_window" msgid="6596775546468054510">"Apri in nuova finestra"</string>
     <string name="goto_dot" msgid="3895839050522602723">"Vai"</string>
     <string name="find_dot" msgid="6259312434696611957">"Trova nella pagina"</string>
@@ -257,7 +257,7 @@
     <string name="retry" msgid="1835923075542266721">"Riprova"</string>
     <string name="no_downloads" msgid="3947445710685021498">"La cronologia download è vuota."</string>
     <string name="download_error" msgid="413496839831257187">"Download non riuscito."</string>
-    <string name="download_success" msgid="2279041638155595203">"<xliff:g id="FILE">%s</xliff:g> Download completato."</string>
+    <string name="download_success" msgid="2279041638155595203">"\n<xliff:g id="FILE">%s</xliff:g> Download completato."</string>
     <string name="download_running" msgid="2622942231322015059">"Download..."</string>
     <string name="download_pending" msgid="2599683668575349559">"Avvio download..."</string>
     <string name="download_pending_network" msgid="6548714525679461053">"In attesa di connessione dati..."</string>
@@ -277,7 +277,7 @@
     <string name="webstorage_clear_data_dialog_cancel_button" msgid="2028867751958942762">"Annulla"</string>
     <string name="webstorage_origin_summary_mb_stored" msgid="1985885826292236210">"MB memorizzati sul telefono"</string>
     <string name="loading_video" msgid="4887871585216091096">"Caricamento video in corso"</string>
-    <string name="geolocation_permissions_prompt_message" msgid="356796102004052471">"<xliff:g id="WEBSITE_ORIGIN">%s</xliff:g> vuole conoscere la tua posizione"</string>
+    <string name="geolocation_permissions_prompt_message" msgid="356796102004052471">"\n<xliff:g id="WEBSITE_ORIGIN">%s</xliff:g> vuole conoscere la tua posizione"</string>
     <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"Condividi posizione"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"Rifiuta"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"Ricorda la preferenza"</string>
@@ -296,4 +296,52 @@
     <string name="website_settings_clear_all_dialog_ok_button" msgid="6401582240627669431">"Elimina tutti i dati"</string>
     <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"Annulla"</string>
     <string name="progress_dialog_setting_wallpaper" msgid="4871900779338536674">"Impostazione sfondo in corso..."</string>
+  <array name="pref_content_plugins_values" />
+  <array name="pref_text_size_values" />
+  <array name="pref_default_zoom_values" />
+  <string-array name="pref_development_ua_choices">
+    <item>Android</item>
+    <item>Desktop</item>
+    <item>iPhone</item>
+    <item>iPad</item>
+    <item>Froyo-N1</item>
+  </string-array>
+  <string-array name="pref_development_ua_values">
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+    <item>4</item>
+  </string-array>
+  <string-array name="pref_default_text_encoding_values">
+    <item>Latin-1</item>
+    <item>UTF-8</item>
+    <item>GBK</item>
+    <item>Big5</item>
+    <item>ISO-2022-JP</item>
+    <item>SHIFT_JIS</item>
+    <item>EUC-JP</item>
+  </string-array>
+    <string name="pref_default_text_encoding_default">Latino-1</string>
+    <string name="pref_development_viewport">Usare punto di vista ampio</string>
+    <string name="pref_development_single_column_rendering">Colonna singola</string>
+    <string name="pref_development_normal_rendering">Normale</string>
+    <string name="pref_development_trace">Abilita tracciabilità</string>
+    <string name="pref_development_nav_dump">Abilita tracciabilità</string>
+    <string name="js_engine_flags">Imposta Bandiere JS</string>
+    <string name="pref_development_uastring">UAString</string>
+    <string name="pref_development_uastring_release">Agente utente</string>
+    <string name="pref_development_error_console">Mostra JavaScript Console</string>
+    <string name="search_label">Browser</string>
+    <string name="dump_nav">Elimina cache di navigazione</string>
+    <string name="dump_counters">Elimina contatori V8</string>
+    <string name="picasa">Picasa</string>
+    <string name="error_console_header_text_minimized">Show JavaScript console</string>
+    <string name="error_console_header_text_maximized">JavaScript console</string>
+    <string name="error_console_eval_text_hint">Valuta JavaScript</string>
+    <string name="error_console_eval_button_text">Valuta</string>
+    <string name="download_storage_busy_dlg_msg">La memoria è occupata. Per permettere i download selezionare Spegnere memoria USBneella notifica</string>
+    <string name="download_storage_busy_dlg_title">Memoria non disponibile</string>
+    <string name="download_no_storage_dlg_title">Nessuna memoria</string>
+    <string name="download_no_storage_dlg_msg">Memoria necessaria per scaricare</string>
 </resources>
