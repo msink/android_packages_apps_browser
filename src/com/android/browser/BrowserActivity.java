@@ -154,6 +154,8 @@ public class BrowserActivity extends Activity
     private final static boolean LOGV_ENABLED = com.android.browser.Browser.LOGV_ENABLED;
     private final static boolean LOGD_ENABLED = com.android.browser.Browser.LOGD_ENABLED;
 
+    private boolean bolGotoStandby = false;
+
     private static class ClearThumbnails extends AsyncTask<File, Void, Void> {
         @Override
         public Void doInBackground(File... files) {
@@ -926,6 +928,7 @@ public class BrowserActivity extends Activity
             // removed when the page finishes.
             showFakeTitleBar();
         }
+        resetEpdMode(0);
     }
 
     private void hideFakeTitleBar() {
@@ -989,6 +992,7 @@ public class BrowserActivity extends Activity
     protected void onPause() {
         super.onPause();
 
+        Log.e("", "============================");
         if (mActivityInPause) {
             Log.e(LOGTAG, "BrowserActivity is already paused.");
             return;
@@ -1654,6 +1658,7 @@ public class BrowserActivity extends Activity
                 break;
         }
         mCurrentMenuState = mMenuState;
+        resetEpdMode(0);
         return true;
     }
 
@@ -2196,6 +2201,7 @@ public class BrowserActivity extends Activity
         // the key and do nothing.
         if (mMenuIsDown) return true;
 
+        Log.e("", "============================" + keyCode);
         switch(keyCode) {
             case KeyEvent.KEYCODE_KEYBOARD:
                 editUrl();
@@ -2235,6 +2241,13 @@ public class BrowserActivity extends Activity
         switch(keyCode) {
             case KeyEvent.KEYCODE_MENU:
                 mMenuIsDown = false;
+                break;
+            case KeyEvent.KEYCODE_DPAD_UP:
+            case KeyEvent.KEYCODE_DPAD_DOWN:
+                if (oldScrollY != mTabControl.getCurrentWebView().getScrollY()) {
+                    resetEpdMode(0);
+                    oldScrollY = mTabControl.getCurrentWebView().getScrollY();
+                }
                 break;
             case KeyEvent.KEYCODE_BACK:
                 if (event.isTracking() && !event.isCanceled()) {
@@ -2314,6 +2327,21 @@ public class BrowserActivity extends Activity
     private static final int RELEASE_WAKELOCK        = 107;
 
     static final int UPDATE_BOOKMARK_THUMBNAIL       = 108;
+
+    private int oldScrollY = 0;
+    final Handler mPrivateHandler = new Handler();
+    private Runnable mResetEpdRunnable = new Runnable() {
+        public void run() {
+            mTabControl.getCurrentWebView().requestEpdMode(View.EPD_FULL);
+            mTabControl.getCurrentWebView().invalidate();
+        }
+    };
+
+    private void resetEpdMode(long delay) {
+        delay += 200;
+        mPrivateHandler.removeCallbacks(mResetEpdRunnable);
+        mPrivateHandler.postDelayed(mResetEpdRunnable, delay);
+    }
 
     // Private handler for handling javascript and saving passwords
     private Handler mHandler = new Handler() {
