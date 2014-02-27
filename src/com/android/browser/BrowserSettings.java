@@ -125,7 +125,7 @@ class BrowserSettings extends Observable {
     private static WebSettings.TextSize textSize =
         WebSettings.TextSize.NORMAL;
     private static WebSettings.ZoomDensity zoomDensity =
-        WebSettings.ZoomDensity.MEDIUM;
+        WebSettings.ZoomDensity.CLOSE;
     private static int pageCacheCapacity;
 
     // Preference keys that are used outside this class
