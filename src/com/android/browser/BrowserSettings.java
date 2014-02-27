@@ -386,7 +386,7 @@ class BrowserSettings extends Observable {
             navDump = p.getBoolean("enable_nav_dump", navDump);
             userAgent = Integer.parseInt(p.getString("user_agent", "0"));
         } else {
-            userAgent = Integer.parseInt(p.getString("user_agent_release", "4"));
+            userAgent = Integer.parseInt(p.getString("user_agent_release", "0"));
             Log.v("checkFlashPlayerInstalled", "user_agent = " + userAgent);
         }
         // JS flags is loaded from DB even if showDebugSettings is false,
