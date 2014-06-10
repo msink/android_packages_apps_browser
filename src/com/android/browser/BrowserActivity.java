@@ -469,6 +469,9 @@ public class BrowserActivity extends Activity
         }
         final String action = intent.getAction();
         final int flags = intent.getFlags();
+        if (action == null) {
+            loadUrl(current.getWebView(), mSettings.getHomePage());
+        }
         if (Intent.ACTION_MAIN.equals(action) ||
                 (flags & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) != 0) {
             // just resume the browser

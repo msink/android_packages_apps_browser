@@ -301,4 +301,11 @@
     <string name="download_storage_busy_dlg_title">storage unavailable</string>
     <string name="download_no_storage_dlg_title">No Storage</string>
     <string name="download_no_storage_dlg_msg">Storage is required to download %s.</string>
+    <string name="homepage_base">http://www.baidu.com</string>
+    <string-array name="bookmarks">
+        <item>广州文石信息科技有限公司</item>
+        <item>http://www.onyx-international.com.cn/</item>
+        <item>百度搜索</item>
+        <item>http://www.baidu.com/</item>
+    </string-array>
 </resources>
