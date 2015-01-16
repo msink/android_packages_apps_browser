@@ -134,6 +134,11 @@
     <item msgid="2484126708670016519">"Su richiesta"</item>
     <item msgid="8547442717307793863">"Non attivo"</item>
   </string-array>
+  <string-array name="pref_content_plugins_values">
+    <item>ON</item>
+    <item>ON_DEMAND</item>
+    <item>OFF</item>
+  </string-array>
     <string name="pref_content_open_in_background_summary" msgid="1737664075721181678">"Apri le nuove finestre dietro la finestra corrente"</string>
     <string name="pref_content_homepage" msgid="6082437160778559806">"Imposta home page"</string>
     <string name="pref_content_search_engine" msgid="1620101310821644144">"Imposta motore di ricerca"</string>
@@ -181,12 +186,24 @@
     <item msgid="5043128215356351184">"Grande"</item>
     <item msgid="7201512237890458902">"Molto grande"</item>
   </string-array>
+  <string-array name="pref_text_size_values">
+    <item>SMALLEST</item>
+    <item>SMALLER</item>
+    <item>NORMAL</item>
+    <item>LARGER</item>
+    <item>LARGEST</item>
+  </string-array>
     <string name="pref_text_size_dialogtitle" msgid="3625388833512647865">"Dimensioni testo"</string>
     <string name="pref_default_zoom" msgid="8076142259097187395">"Zoom predefinito"</string>
   <string-array name="pref_default_zoom_choices">
     <item msgid="549583171195154919">"Lontano"</item>
     <item msgid="5619034257768161024">"Medio"</item>
     <item msgid="3840999588443167001">"Chiudi"</item>
+  </string-array>
+  <string-array name="pref_default_zoom_values">
+    <item>LONTANO</item>
+    <item>MEDIO</item>
+    <item>VICINO</item>
   </string-array>
     <string name="pref_default_zoom_dialogtitle" msgid="6095974367125109021">"Zoom predefinito"</string>
     <string name="pref_content_load_page" msgid="2219810141690955452">"Apri pag. in panoramica"</string>
@@ -199,7 +216,31 @@
     <string name="pref_extras_reset_default_dlg" msgid="6640261575874704022">"Verranno ripristinate le impostazioni predefinite."</string>
     <string name="pref_extras_reset_default_dlg_title" msgid="2250334970728938936">"Ripristina valori predef."</string>
     <string name="pref_development_title" msgid="3263854204533056480">"Debug"</string>
+    <string name="pref_development_viewport">Usa visualizzazione ampia</string>
+    <string name="pref_development_single_column_rendering">Rendering a singola colonna</string>
+    <string name="pref_development_normal_rendering">Rendering normale</string>
+    <string name="pref_development_trace">Abilita tracciamento</string>
+    <string name="pref_development_nav_dump">Abilita nav cache dump</string>
+    <string name="js_engine_flags">Imposta JS flags</string>
+    <string name="pref_development_uastring">UAString</string>
+    <string name="pref_development_uastring_release">User agent</string>
+    <string name="pref_development_error_console">Mostra la console Javascript</string>
+  <string-array name="pref_development_ua_choices">
+    <item>Android</item>
+    <item>Desktop</item>
+    <item>iPhone</item>
+    <item>iPad</item>
+    <item>Froyo-N1</item>
+  </string-array>
+  <string-array name="pref_development_ua_values">
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+    <item>4</item>
+  </string-array>
     <string name="pref_default_text_encoding" msgid="5742965543955558478">"Codifica testo"</string>
+    <string name="pref_default_text_encoding_default">Latin-1</string>
   <string-array name="pref_default_text_encoding_choices">
     <item msgid="7275223955790513818">"Latin-1 (ISO-8859-1)"</item>
     <item msgid="2456597866837587140">"Unicode (UTF-8)"</item>
@@ -208,6 +249,15 @@
     <item msgid="891615911084608570">"Giapponese (ISO-2022-JP)"</item>
     <item msgid="5589150448475151241">"Giapponese (SHIFT_JIS)"</item>
     <item msgid="7356792686950371843">"Giapponese (EUC-JP)"</item>
+  </string-array>
+  <string-array name="pref_default_text_encoding_values">
+    <item>Latin-1</item>
+    <item>UTF-8</item>
+    <item>GBK</item>
+    <item>Big5</item>
+    <item>ISO-2022-JP</item>
+    <item>SHIFT_JIS</item>
+    <item>EUC-JP</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Codifica testo"</string>
     <string name="browserFrameNetworkErrorLabel" msgid="126892350904924893">"Problema di connettività dati"</string>
@@ -267,6 +317,9 @@
     <string name="download_file_error" msgid="1206648050615176113">"Impossibile terminare il download. Spazio insufficiente."</string>
     <string name="download_length_required" msgid="9038605488460437406">"Impossibile effettuare il download. Impossibile determinare le dimensioni dell\'elemento."</string>
     <string name="download_precondition_failed" msgid="8327584102874295580">"Download interrotto. Impossibile ripristinarlo."</string>
+    <string name="dump_nav">Dump cache di navigazione</string>
+    <string name="dump_counters">Dump contatori V8</string>
+    <string name="picasa">Picasa</string>
     <string name="search_the_web" msgid="6046130189241962337">"Cerca nel Web"</string>
     <string name="webstorage_outofspace_notification_title" msgid="1160474608059771788">"Memoria del browser piena"</string>
     <string name="webstorage_outofspace_notification_text" msgid="7341075135051829692">"Fai clic per liberare spazio."</string>
@@ -296,4 +349,8 @@
     <string name="website_settings_clear_all_dialog_ok_button" msgid="6401582240627669431">"Elimina tutti i dati"</string>
     <string name="website_settings_clear_all_dialog_cancel_button" msgid="1896757051856611674">"Annulla"</string>
     <string name="progress_dialog_setting_wallpaper" msgid="4871900779338536674">"Impostazione sfondo in corso..."</string>
+    <string name="error_console_header_text_minimized">Mostra la console Javascript</string>
+    <string name="error_console_header_text_maximized">Console Javascript</string>
+    <string name="error_console_eval_text_hint">Valutazione Javascript</string>
+    <string name="error_console_eval_button_text">Valuta</string>
 </resources>
